@@ -20,6 +20,11 @@
             <property name="tooltip-text" translatable="yes">Titulo</property>
             <property name="margin-top">25</property>
             <property name="label" translatable="yes">Menú principal</property>
+            <attributes>
+              <attribute name="font-desc" value="URW Gothic Semi-Bold 10"/>
+              <attribute name="style" value="normal"/>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -121,7 +126,8 @@
             <property name="receives-default">True</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
-            <property name="margin-bottom">10</property>
+            <property name="margin-top">10</property>
+            <property name="margin-bottom">20</property>
             <signal name="clicked" handler="on_btn_exit_clicked" swapped="no"/>
           </object>
           <packing>

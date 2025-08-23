@@ -22,6 +22,8 @@
             <property name="label" translatable="yes">Menú principal</property>
             <attributes>
               <attribute name="font-desc" value="URW Gothic Semi-Bold 10"/>
+              <attribute name="style" value="normal"/>
+              <attribute name="weight" value="bold"/>
             </attributes>
           </object>
           <packing>
