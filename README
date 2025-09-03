@@ -1,0 +1,12 @@
+Proyecto 0
+Realizado por:
+~ Jose Pablo Fernandez Jimenez - 2023117752
+~ Diego Duran Rodriguez - 2022437509
+
+El proyecto consiste en un menu de distintos algoritmos de Programacion Dinamica que se pueden ejecutar de forma independiente.
+Por ahora todos los botones ejecutan el programa pending ya que no se encuentran implementados los algoritmos.
+
+EL proyecto fue creado utilizando GTK, Glade y el lenguaje C.
+
+Para compilar los archivos necesarios se puede escribir "make" en la consola.
+Para correr el programa ejecutar: ./main
