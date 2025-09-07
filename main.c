@@ -8,7 +8,7 @@ void on_btn_clicked(GtkWidget *GtkWidget, gpointer d)
 
 void on_btn_clicked_floyd(GtkWidget *GtkWidget, gpointer d)
 {
-    system("cd ./PR01 && ./floyd &");
+    system("./floyd &");
 }
 
 void on_btn_exit_clicked(GtkWidget *GtkWidget, gpointer d)
