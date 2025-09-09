@@ -1,7 +1,5 @@
-
-// Requiere: pdflatex, evince
-// sudo apt install texlive-latex-base texlive-latex-extra texlive-fonts-recommended
-// sudo apt install evince
+// PR01 - IO - Rutas Óptimas (Algoritmo de Floyd)
+// Creador por Diego Durán y Jose Pablo Fernandez
 
 #include <gtk/gtk.h>
 #include <stdio.h>
@@ -13,29 +11,29 @@
 #define INF 1000000000
 
 GtkWidget *grid_table;
-GtkWidget *name_row[MAXN], *name_col[MAXN];
-GtkWidget *entry_matrix[MAXN][MAXN];
-int current_n = 0;
+GtkWidget *row_name[MAXN], *column_name[MAXN];
+GtkWidget *initial_matrix[MAXN][MAXN];
+int current_nodes = 0;
 gboolean updating = FALSE;
 gboolean loaded_from_file = FALSE;
 
 // prototipos
-int ask_nodes_dialog();
-void build_table();
-int parse_val(const char *txt);
-void run_floyd(GtkWidget *btn, gpointer data);
+int nodes_dialog();
+void build_grid();
+int parse(const char *txt);
+void floyd(GtkWidget *btn, gpointer data);
 void on_aceptar_clicked(GtkButton *button, gpointer dialog);
 void on_header_changed(GtkEditable *editable, gpointer index_ptr);
 
 // Memoria para snapshots
-int **alloc_int_matrix(int n)
+int **alloc_matrix(int n)
 {
     int **m = malloc(n * sizeof(int *));
     for (int i = 0; i < n; i++)
         m[i] = malloc(n * sizeof(int));
     return m;
 }
-void free_int_matrix(int **m, int n)
+void free_matrix(int **m, int n)
 {
     for (int i = 0; i < n; i++)
         free(m[i]);
@@ -52,13 +50,13 @@ void on_header_changed(GtkEditable *editable, gpointer index_ptr)
     int idx = GPOINTER_TO_INT(index_ptr);
     const char *text = gtk_entry_get_text(GTK_ENTRY(editable));
 
-    if (editable == GTK_EDITABLE(name_row[idx]))
+    if (editable == GTK_EDITABLE(row_name[idx]))
     {
-        gtk_entry_set_text(GTK_ENTRY(name_col[idx]), text);
+        gtk_entry_set_text(GTK_ENTRY(column_name[idx]), text);
     }
-    else if (editable == GTK_EDITABLE(name_col[idx]))
+    else if (editable == GTK_EDITABLE(column_name[idx]))
     {
-        gtk_entry_set_text(GTK_ENTRY(name_row[idx]), text);
+        gtk_entry_set_text(GTK_ENTRY(row_name[idx]), text);
     }
 
     updating = FALSE;
@@ -67,7 +65,6 @@ void on_header_changed(GtkEditable *editable, gpointer index_ptr)
 void on_entry_insert_text(GtkEditable *editable, const gchar *text, gint length, gint *position, gpointer data)
 {
     gboolean valid = TRUE;
-
     for (int i = 0; i < length; i++)
     {
         char c = text[i];
@@ -77,7 +74,6 @@ void on_entry_insert_text(GtkEditable *editable, const gchar *text, gint length,
             break;
         }
     }
-
     if (!valid)
     {
         g_signal_stop_emission_by_name(editable, "insert-text");
@@ -86,7 +82,7 @@ void on_entry_insert_text(GtkEditable *editable, const gchar *text, gint length,
 }
 
 // crear el grid en interfaz
-void build_table()
+void build_grid()
 {
     // limpiar grid
     GList *children = gtk_container_get_children(GTK_CONTAINER(grid_table));
@@ -95,29 +91,29 @@ void build_table()
     g_list_free(children);
 
     // crear encabezados de columnas
-    for (int j = 0; j < current_n; j++)
+    for (int j = 0; j < current_nodes; j++)
     {
         GtkWidget *entry = gtk_entry_new();
         gtk_grid_attach(GTK_GRID(grid_table), entry, j + 1, 0, 1, 1);
-        name_col[j] = entry;
+        column_name[j] = entry;
     }
 
     // crear filas + matriz
-    for (int i = 0; i < current_n; i++)
+    for (int i = 0; i < current_nodes; i++)
     {
         GtkWidget *entry = gtk_entry_new();
         gtk_grid_attach(GTK_GRID(grid_table), entry, 0, i + 1, 1, 1);
-        name_row[i] = entry;
+        row_name[i] = entry;
 
         // conectar señales de sincronización
         g_signal_connect(entry, "changed", G_CALLBACK(on_header_changed), GINT_TO_POINTER(i));
-        g_signal_connect(name_col[i], "changed", G_CALLBACK(on_header_changed), GINT_TO_POINTER(i));
+        g_signal_connect(column_name[i], "changed", G_CALLBACK(on_header_changed), GINT_TO_POINTER(i));
 
-        for (int j = 0; j < current_n; j++)
+        for (int j = 0; j < current_nodes; j++)
         {
             GtkWidget *e = gtk_entry_new();
             gtk_grid_attach(GTK_GRID(grid_table), e, j + 1, i + 1, 1, 1);
-            entry_matrix[i][j] = e;
+            initial_matrix[i][j] = e;
             g_signal_connect(e, "insert-text", G_CALLBACK(on_entry_insert_text), NULL);
         }
     }
@@ -128,34 +124,34 @@ void build_table()
 void init_defaults()
 {
     // nombres por defecto A, B, C...
-    for (int j = 0; j < current_n; j++)
+    for (int j = 0; j < current_nodes; j++)
     {
         char buf[2] = {'A' + j, '\0'};
-        gtk_entry_set_text(GTK_ENTRY(name_col[j]), buf);
-        gtk_entry_set_text(GTK_ENTRY(name_row[j]), buf);
+        gtk_entry_set_text(GTK_ENTRY(column_name[j]), buf);
+        gtk_entry_set_text(GTK_ENTRY(row_name[j]), buf);
     }
 
     // valores de la matriz
-    for (int i = 0; i < current_n; i++)
+    for (int i = 0; i < current_nodes; i++)
     {
-        for (int j = 0; j < current_n; j++)
+        for (int j = 0; j < current_nodes; j++)
         {
             if (i == j)
             {
-                gtk_entry_set_text(GTK_ENTRY(entry_matrix[i][j]), "0");
-                gtk_editable_set_editable(GTK_EDITABLE(entry_matrix[i][j]), FALSE);
+                gtk_entry_set_text(GTK_ENTRY(initial_matrix[i][j]), "0");
+                gtk_editable_set_editable(GTK_EDITABLE(initial_matrix[i][j]), FALSE);
             }
             else
             {
-                gtk_entry_set_text(GTK_ENTRY(entry_matrix[i][j]), "INF");
-                gtk_editable_set_editable(GTK_EDITABLE(entry_matrix[i][j]), TRUE);
+                gtk_entry_set_text(GTK_ENTRY(initial_matrix[i][j]), "*");
+                gtk_editable_set_editable(GTK_EDITABLE(initial_matrix[i][j]), TRUE);
             }
         }
     }
 }
 
 // parser de inf o numero
-int parse_val(const char *txt)
+int parse(const char *txt)
 {
     if (!txt)
         return INF;
@@ -175,6 +171,7 @@ void on_aceptar_clicked(GtkButton *button, gpointer dialog)
     gtk_dialog_response(GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 }
 
+// Cargar archivos guardados del usuario
 void on_load_button_clicked(GtkWidget *widget, gpointer data)
 {
     GtkWidget *dialog_parent = GTK_WIDGET(data);
@@ -228,13 +225,13 @@ void on_load_button_clicked(GtkWidget *widget, gpointer data)
         return;
     }
 
-    current_n = file_n;
+    current_nodes = file_n;
 
     // reconstruir la tabla
-    build_table();
+    build_grid();
 
     // leer nombres
-    for (int i = 0; i < current_n; i++)
+    for (int i = 0; i < current_nodes; i++)
     {
         if (!fgets(buffer, sizeof(buffer), f))
         {
@@ -243,13 +240,13 @@ void on_load_button_clicked(GtkWidget *widget, gpointer data)
             return;
         }
         buffer[strcspn(buffer, "\r\n")] = 0;
-        gtk_entry_set_text(GTK_ENTRY(name_row[i]), buffer);
-        gtk_entry_set_text(GTK_ENTRY(name_col[i]), buffer);
+        gtk_entry_set_text(GTK_ENTRY(row_name[i]), buffer);
+        gtk_entry_set_text(GTK_ENTRY(column_name[i]), buffer);
     }
 
-    for (int i = 0; i < current_n; i++)
+    for (int i = 0; i < current_nodes; i++)
     {
-        for (int j = 0; j < current_n; j++)
+        for (int j = 0; j < current_nodes; j++)
         {
             if (!fgets(buffer, sizeof(buffer), f))
             {
@@ -258,7 +255,7 @@ void on_load_button_clicked(GtkWidget *widget, gpointer data)
                 return;
             }
             buffer[strcspn(buffer, "\r\n")] = 0;
-            gtk_entry_set_text(GTK_ENTRY(entry_matrix[i][j]), buffer);
+            gtk_entry_set_text(GTK_ENTRY(initial_matrix[i][j]), buffer);
         }
     }
 
@@ -270,7 +267,8 @@ void on_load_button_clicked(GtkWidget *widget, gpointer data)
     gtk_dialog_response(GTK_DIALOG(dialog_parent), GTK_RESPONSE_APPLY);
 }
 
-int ask_nodes_dialog()
+// dialog para preguntar cantidad de nodos y cargar archivos
+int nodes_dialog()
 {
     GtkWidget *dialog = gtk_dialog_new();
     gtk_window_set_title(GTK_WINDOW(dialog), "Cantidad de nodos");
@@ -289,7 +287,6 @@ int ask_nodes_dialog()
     gtk_box_pack_start(GTK_BOX(vbox), spin, FALSE, FALSE, 8);
     gtk_widget_set_halign(spin, GTK_ALIGN_CENTER);
 
-    // Botón Aceptar
     GtkWidget *btn_aceptar = gtk_button_new_with_label("Aceptar");
     gtk_box_pack_start(GTK_BOX(vbox), btn_aceptar, FALSE, FALSE, 8);
     gtk_widget_set_halign(btn_aceptar, GTK_ALIGN_CENTER);
@@ -303,7 +300,6 @@ int ask_nodes_dialog()
     int response = -1;
     int val = 0;
 
-    // Conectar señal para cerrar el diálogo con respuesta OK al presionar Aceptar
     g_signal_connect(btn_aceptar, "clicked", G_CALLBACK(on_aceptar_clicked), dialog);
     g_object_set_data(G_OBJECT(dialog), "spin", spin);
 
@@ -317,12 +313,13 @@ int ask_nodes_dialog()
     }
     else if (response == GTK_RESPONSE_APPLY)
     {
-        val = current_n;
+        val = current_nodes;
     }
     gtk_widget_destroy(dialog);
     return val;
 }
 
+// guardar datos en archivo .txt
 void on_save_button_clicked(GtkWidget *widget, gpointer data)
 {
     GtkWidget *dialog;
@@ -376,20 +373,20 @@ void on_save_button_clicked(GtkWidget *widget, gpointer data)
     }
 
     // guardar número de nodos
-    fprintf(f, "%d\n", current_n);
+    fprintf(f, "%d\n", current_nodes);
 
     // guardar nombres
-    for (int i = 0; i < current_n; i++)
+    for (int i = 0; i < current_nodes; i++)
     {
-        fprintf(f, "%s\n", gtk_entry_get_text(GTK_ENTRY(name_row[i])));
+        fprintf(f, "%s\n", gtk_entry_get_text(GTK_ENTRY(row_name[i])));
     }
 
     // guardar matriz
-    for (int i = 0; i < current_n; i++)
+    for (int i = 0; i < current_nodes; i++)
     {
-        for (int j = 0; j < current_n; j++)
+        for (int j = 0; j < current_nodes; j++)
         {
-            fprintf(f, "%s\n", gtk_entry_get_text(GTK_ENTRY(entry_matrix[i][j])));
+            fprintf(f, "%s\n", gtk_entry_get_text(GTK_ENTRY(initial_matrix[i][j])));
         }
     }
 
@@ -397,25 +394,24 @@ void on_save_button_clicked(GtkWidget *widget, gpointer data)
     g_free(filename);
 }
 
-// -------------------------------  Crea la ruta optima entre cada nodo ----------------------------------------------------------------
+// Crea la ruta optima entre cada par de nodos
 char *build_route_string(int i, int j, int **P, char names[][32], int n)
 {
-
     typedef struct
     {
         int a, b;
-    } Seg;
-    Seg segs[512];
-    int sstart = 0, send = 0;
-    segs[send++] = (Seg){i, j};
+    } Segment;
+    Segment seg[512];
+    int segStart = 0, send = 0;
+    seg[send++] = (Segment){i, j};
 
     int nodes[1024];
     int nodes_len = 0;
 
-    while (sstart < send)
+    while (segStart < send)
     {
-        Seg cur = segs[sstart++];
-        int a = cur.a, b = cur.b;
+        Segment current = seg[segStart++];
+        int a = current.a, b = current.b;
         int k = P[a][b];
         if (k == -1)
         { // si el camino es directo
@@ -430,10 +426,10 @@ char *build_route_string(int i, int j, int **P, char names[][32], int n)
         {
             // si hay parada entre los nodos divide en dos para agregar cada segmento
             // cuidar si n es mayor a 8 puede fallar
-            for (int t = send + 1; t > sstart; t--)
-                segs[t] = segs[t - 1];
-            segs[sstart] = (Seg){a, k};
-            segs[sstart + 1] = (Seg){k, b};
+            for (int t = send + 1; t > segStart; t--)
+                seg[t] = seg[t - 1];
+            seg[segStart] = (Segment){a, k};
+            seg[segStart + 1] = (Segment){k, b};
             send += 1;
         }
     }
@@ -458,8 +454,8 @@ char *build_route_string(int i, int j, int **P, char names[][32], int n)
     return res;
 }
 
-// --------------------------------------- Escritura en latex ------------------------------------------------
-void write_tex(const char *fname, int n, int ***snapD, int ***snapP, char names[][32], int steps)
+// -Escribe los resultados en el archivo Latex 
+void write_tex(const char *fname, int n, int ***tableD, int ***tableP, char names[][32], int steps)
 {
     FILE *f = fopen(fname, "w");
     if (!f)
@@ -480,11 +476,11 @@ void write_tex(const char *fname, int n, int ***snapD, int ***snapP, char names[
     fprintf(f, "\\begin{document}\n");
 
     // Portada
-    fprintf(f, "\\begin{center}\n{\\LARGE \\textbf{Proyecto 1: Algoritmo de Floyd}}\\\\[2cm]\n");
-    fprintf(f, "{\\large Investigacion de Operaciones\\\\[2cm]\n");
+    fprintf(f, "\\begin{center}\n{\\LARGE \\textbf{Proyecto 1: Rutas Óptimas (Algoritmo de Floyd)}}\\\\[2cm]\n");
+    fprintf(f, "{\\large Investigación de Operaciones\\\\[2cm]\n");
     fprintf(f, "{\\large Integrantes: }\\\\[1cm]\n");
     fprintf(f, "{\\large Jose Pablo Fernandez Jimenez - 2023117752}\\\\[1cm]\n");
-    fprintf(f, "{\\large Diego Duran Rodriguez - 2022437509}\\\\[2cm]\n");
+    fprintf(f, "{\\large Diego Durán Rodríguez - 2022437509}\\\\[2cm]\n");
     fprintf(f, "{\\large Segundo semestre 2025\\\\[1cm]\n");
     fprintf(f, "\\end{center}\n\\newpage\n");
 
@@ -509,8 +505,8 @@ void write_tex(const char *fname, int n, int ***snapD, int ***snapP, char names[
         fprintf(f, "\\node (N%d) at (%.3f, %.3f) {%s};\n", i, x, y, names[i]);
     }
 
-    // aristas con pesos desde D(0)
-    int **D0 = snapD[0];
+    // aristas con pesos 
+    int **D0 = tableD[0];
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
         {
@@ -519,13 +515,14 @@ void write_tex(const char *fname, int n, int ***snapD, int ***snapP, char names[
             int val = D0[i][j];
             if (val >= INF)
                 continue;
-            const char *bend = ((i + j) % 2 == 0) ? "bend left=15" : "bend right=15"; // para que no se encimen las aristas
+            const char *bend = ((i + j) % 2 == 0) ? "bend left=15" : "bend right=15";
             fprintf(f, "\\draw[->, thick, >=latex, red] (N%d) to[%s] node[midway, above, draw=none, fill=none, rectangle, font=\\small\\sffamily] {%d} (N%d);\n", i, bend, val, j);
         }
     fprintf(f, "\\end{tikzpicture}\n\\end{center}\n\\newpage\n");
 
     // Tablas iniciales
     fprintf(f, "\\section*{Tablas iniciales}\n");
+    // D(0)
     fprintf(f, "\\subsection*{D(0)}\n");
     fprintf(f, "\\begin{center}\n");
     fprintf(f, "\\begin{tabular}{c|");
@@ -545,7 +542,7 @@ void write_tex(const char *fname, int n, int ***snapD, int ***snapP, char names[
         fprintf(f, "%s & ", names[i]);
         for (int j = 0; j < n; j++)
         {
-            int val = snapD[0][i][j];
+            int val = tableD[0][i][j];
             if (val >= INF)
                 fprintf(f, "$\\infty$");
             else
@@ -577,7 +574,7 @@ void write_tex(const char *fname, int n, int ***snapD, int ***snapP, char names[
         fprintf(f, "%s & ", names[i]);
         for (int j = 0; j < n; j++)
         {
-            int v = snapP[0][i][j];
+            int v = tableP[0][i][j];
             if (v == -1)
                 fprintf(f, "0");
             else
@@ -589,11 +586,11 @@ void write_tex(const char *fname, int n, int ***snapD, int ***snapP, char names[
     }
     fprintf(f, "\\end{tabular}\n\\end{center}\n\\newpage\n");
 
-    // Tablas intermedias (D(k), P(k)), marcar cambios
+    // Tablas intermedias
     fprintf(f, "\\section*{Tablas intermedias}\n");
     for (int k = 1; k < steps; k++)
     {
-        fprintf(f, "\\section*{Calculo de D(%d)}\n", k);
+        fprintf(f, "\\section*{Cálculo de D(%d)}\n", k);
         fprintf(f, "\\subsection*{D(%d)}\n", k);
         fprintf(f, "\\begin{center}\n");
         fprintf(f, "\\begin{tabular}{c|");
@@ -613,8 +610,8 @@ void write_tex(const char *fname, int n, int ***snapD, int ***snapP, char names[
             fprintf(f, "%s & ", names[i]);
             for (int j = 0; j < n; j++)
             {
-                int prev = snapD[k - 1][i][j];
-                int cur = snapD[k][i][j];
+                int prev = tableD[k - 1][i][j];
+                int cur = tableD[k][i][j];
                 if (cur != prev)
                 { // revisa si hay un cambio en D para escribirlo en tabla P
                     if (cur >= INF)
@@ -655,9 +652,9 @@ void write_tex(const char *fname, int n, int ***snapD, int ***snapP, char names[
             fprintf(f, "%s & ", names[i]);
             for (int j = 0; j < n; j++)
             {
-                int v = snapP[k][i][j];
+                int v = tableP[k][i][j];
                 if (v == -1)
-                    fprintf(f, "-");
+                    fprintf(f, "0");
                 else
                     fprintf(f, "%s", names[v]);
                 if (j < n - 1)
@@ -673,8 +670,8 @@ void write_tex(const char *fname, int n, int ***snapD, int ***snapP, char names[
     fprintf(f, "\\begin{longtable}{c c c p{7cm}}\n");
     fprintf(f, "\\hline\nOrigen & Destino & Distancia & Ruta \\\\\\hline\n\\endhead\n");
 
-    int **Dfinal = snapD[steps - 1];
-    int **Pfinal = snapP[steps - 1];
+    int **Dfinal = tableD[steps - 1];
+    int **Pfinal = tableP[steps - 1];
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
         {
@@ -700,18 +697,18 @@ void write_tex(const char *fname, int n, int ***snapD, int ***snapP, char names[
     fclose(f);
 }
 
-/* ---------- run_floyd: guarda snapshots, escribe tex, compila y abre PDF ---------- */
-void run_floyd(GtkWidget *btn, gpointer data)
+// Algoritmo de floyd con snapshots para mostrar en el archivo latex
+void floyd(GtkWidget *btn, gpointer data)
 {
-    int n = current_n;
-    int **D = alloc_int_matrix(n);
-    int **P = alloc_int_matrix(n);
+    int n = current_nodes;
+    int **D = alloc_matrix(n);
+    int **P = alloc_matrix(n);
 
     // obtener nombres
     char names[MAXN][32];
     for (int i = 0; i < n; i++)
     {
-        const char *t = gtk_entry_get_text(GTK_ENTRY(name_row[i]));
+        const char *t = gtk_entry_get_text(GTK_ENTRY(row_name[i]));
         if (!t || strlen(t) == 0)
             snprintf(names[i], sizeof(names[i]), "%c", 'A' + i);
         else
@@ -721,56 +718,28 @@ void run_floyd(GtkWidget *btn, gpointer data)
         }
     }
 
-    // leer D(0), inicializar P
+    // leer D(0) e inicializar P
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
         {
-            const char *txt = gtk_entry_get_text(GTK_ENTRY(entry_matrix[i][j]));
-            D[i][j] = parse_val(txt);
+            const char *txt = gtk_entry_get_text(GTK_ENTRY(initial_matrix[i][j]));
+            D[i][j] = parse(txt);
             P[i][j] = -1;
         }
 
-    // snapshots: steps = n+1 (D0 .. Dn)
     int steps = n + 1;
-    int ***snapD = malloc(steps * sizeof(int **));
-    int ***snapP = malloc(steps * sizeof(int **));
+    int ***tableD = malloc(steps * sizeof(int **));
+    int ***tableP = malloc(steps * sizeof(int **));
 
-    // almacenar D(0) y P(0)
-    snapD[0] = alloc_int_matrix(n);
-    snapP[0] = alloc_int_matrix(n);
+    // guardar D(0) y P(0)
+    tableD[0] = alloc_matrix(n);
+    tableP[0] = alloc_matrix(n);
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
         {
-            snapD[0][i][j] = D[i][j];
-            snapP[0][i][j] = P[i][j];
+            tableD[0][i][j] = D[i][j];
+            tableP[0][i][j] = P[i][j];
         }
-
-    // Imprimir D(0) y P(0) por consola
-    printf("D(0):\n");
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            if (D[i][j] >= INF)
-                printf("INF ");
-            else
-                printf("%3d ", D[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\nP(0):\n");
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            if (P[i][j] == -1)
-                printf(" - ");
-            else
-                printf("%3d ", P[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
 
     // Floyd con snapshots
     for (int k = 0; k < n; k++)
@@ -790,71 +759,44 @@ void run_floyd(GtkWidget *btn, gpointer data)
                 }
             }
         }
-        // almacenar snapshot después de usar k
-        snapD[k + 1] = alloc_int_matrix(n);
-        snapP[k + 1] = alloc_int_matrix(n);
+        // almacenar snapshot 
+        tableD[k + 1] = alloc_matrix(n);
+        tableP[k + 1] = alloc_matrix(n);
         for (int i = 0; i < n; i++)
             for (int j = 0; j < n; j++)
             {
-                snapD[k + 1][i][j] = D[i][j];
-                snapP[k + 1][i][j] = P[i][j];
+                tableD[k + 1][i][j] = D[i][j];
+                tableP[k + 1][i][j] = P[i][j];
             }
-
-        // imprimir por consola también
-        printf("D(%d):\n", k + 1);
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                if (D[i][j] >= INF)
-                    printf("INF ");
-                else
-                    printf("%3d ", D[i][j]);
-            }
-            printf("\n");
-        }
-        printf("\nP(%d):\n", k + 1);
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                if (P[i][j] == -1)
-                    printf(" - ");
-                else
-                    printf("%3d ", P[i][j]);
-            }
-            printf("\n");
-        }
-        printf("\n");
     }
 
-    // Generar LaTeX
+    // Generar LaTeX con las tablas
     const char *texname = "floyd_output.tex";
-    write_tex(texname, n, snapD, snapP, names, steps);
+    write_tex(texname, n, tableD, tableP, names, steps);
 
-    // Compilar con pdflatex (dos veces)
+    // Compilar con pdflatex
     char cmd[512];
     snprintf(cmd, sizeof(cmd), "pdflatex -interaction=nonstopmode %s > /dev/null 2>&1", texname);
     system(cmd);
     system(cmd);
 
-    // Abrir PDF con evince en modo presentación (lanzar en background)
+    // Abrir PDF con evince en modo presentación
     snprintf(cmd, sizeof(cmd), "evince --presentation floyd_output.pdf &");
     system(cmd);
 
-    // Liberar memoria de snapshots
+    // Liberar memoria
     for (int s = 0; s < steps; s++)
     {
-        free_int_matrix(snapD[s], n);
-        free_int_matrix(snapP[s], n);
+        free_matrix(tableD[s], n);
+        free_matrix(tableP[s], n);
     }
-    free(snapD);
-    free(snapP);
-    free_int_matrix(D, n);
-    free_int_matrix(P, n);
+    free(tableD);
+    free(tableP);
+    free_matrix(D, n);
+    free_matrix(P, n);
 }
 
-/* ---------- main ---------- */
+
 int main(int argc, char *argv[])
 {
     gtk_init(&argc, &argv);
@@ -868,17 +810,17 @@ int main(int argc, char *argv[])
     GtkWidget *btn_save = GTK_WIDGET(gtk_builder_get_object(builder, "btn_save"));
     g_signal_connect(btn_save, "clicked", G_CALLBACK(on_save_button_clicked), NULL);
 
-    // preguntar antes de mostrar ventana principal
-    current_n = ask_nodes_dialog();
-    if (current_n <= 0)
+    // preguntar nodos antes de mostrar ventana principal
+    current_nodes = nodes_dialog();
+    if (current_nodes <= 0)
         return 0;
 
     if (!loaded_from_file)
     {
-        build_table();
+        build_grid();
         init_defaults();
     }
-    g_signal_connect(btn_run, "clicked", G_CALLBACK(run_floyd), NULL);
+    g_signal_connect(btn_run, "clicked", G_CALLBACK(floyd), NULL);
     g_signal_connect(btn_close, "clicked", G_CALLBACK(gtk_main_quit), NULL);
 
     gtk_widget_show_all(window);
