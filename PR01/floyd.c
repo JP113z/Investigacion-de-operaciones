@@ -7,7 +7,7 @@
 #include <string.h>
 #include <math.h>
 
-#define MAXN 8
+#define MAXN 50
 #define INF 1000000000
 
 GtkWidget *grid_table;
@@ -407,11 +407,11 @@ char *build_route_string(int i, int j, int **P, char names[][32], int n)
     {
         int a, b;
     } Segment;
-    Segment seg[512];
+    Segment seg[MAXN * MAXN];
     int segStart = 0, send = 0;
     seg[send++] = (Segment){i, j};
 
-    int nodes[1024];
+    int nodes[MAXN * MAXN];
     int nodes_len = 0;
 
     while (segStart < send)
@@ -441,7 +441,7 @@ char *build_route_string(int i, int j, int **P, char names[][32], int n)
     }
 
     // construye el string de resultado
-    char *res = malloc(1024);
+    char *res = malloc(MAXN * 64);
     res[0] = '\0';
     for (int t = 0; t < nodes_len; t++)
     {
