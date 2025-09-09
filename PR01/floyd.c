@@ -296,10 +296,14 @@ int nodes_dialog()
     GtkWidget *btn_aceptar = gtk_button_new_with_label("Aceptar");
     gtk_box_pack_start(GTK_BOX(vbox), btn_aceptar, FALSE, FALSE, 8);
     gtk_widget_set_halign(btn_aceptar, GTK_ALIGN_CENTER);
+    gtk_widget_set_tooltip_text(btn_aceptar,
+                                "Genera una tabla con la cantidad de nodos seleccionados.");
 
     GtkWidget *btn_load = gtk_button_new_with_label("Cargar");
     gtk_box_pack_start(GTK_BOX(vbox), btn_load, FALSE, FALSE, 8);
     gtk_widget_set_halign(btn_load, GTK_ALIGN_CENTER);
+    gtk_widget_set_tooltip_text(btn_load,
+                                "Carga un archivo .txt con un ejercicio previamente guardado en este programa.");
 
     g_signal_connect(btn_load, "clicked", G_CALLBACK(on_load_button_clicked), dialog);
 

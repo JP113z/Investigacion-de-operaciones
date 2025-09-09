@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="window_floyd">
@@ -74,6 +74,7 @@
                 <property name="label">Guardar</property>
                 <property name="can-focus">False</property>
                 <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Guarda el ejercicio en su estado actual, para que pueda ser cargado desde la interfaz anterior cuando se desee.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -87,6 +88,7 @@
                 <property name="label">Cerrar</property>
                 <property name="can-focus">False</property>
                 <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Cierra el programa.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -102,6 +104,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
+                <property name="tooltip-text" translatable="yes">Ejecuta el algoritmo de Floyd para obtener las rutas más cortas.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
