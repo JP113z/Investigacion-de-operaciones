@@ -96,6 +96,9 @@ void build_grid()
         GtkWidget *entry = gtk_entry_new();
         gtk_grid_attach(GTK_GRID(grid_table), entry, j + 1, 0, 1, 1);
         column_name[j] = entry;
+        // Aplica el estilo CSS
+        GtkStyleContext *ctx = gtk_widget_get_style_context(entry);
+        gtk_style_context_add_class(ctx, "header-entry");
     }
 
     // crear filas + matriz
@@ -104,6 +107,9 @@ void build_grid()
         GtkWidget *entry = gtk_entry_new();
         gtk_grid_attach(GTK_GRID(grid_table), entry, 0, i + 1, 1, 1);
         row_name[i] = entry;
+        // Aplica el estilo CSS
+        GtkStyleContext *ctx = gtk_widget_get_style_context(entry);
+        gtk_style_context_add_class(ctx, "header-entry");
 
         // conectar señales de sincronización
         g_signal_connect(entry, "changed", G_CALLBACK(on_header_changed), GINT_TO_POINTER(i));
@@ -291,7 +297,7 @@ int nodes_dialog()
     gtk_box_pack_start(GTK_BOX(vbox), btn_aceptar, FALSE, FALSE, 8);
     gtk_widget_set_halign(btn_aceptar, GTK_ALIGN_CENTER);
 
-    GtkWidget *btn_load = gtk_button_new_with_label("Load");
+    GtkWidget *btn_load = gtk_button_new_with_label("Cargar");
     gtk_box_pack_start(GTK_BOX(vbox), btn_load, FALSE, FALSE, 8);
     gtk_widget_set_halign(btn_load, GTK_ALIGN_CENTER);
 
@@ -486,8 +492,16 @@ void write_tex(const char *fname, int n, int ***tableD, int ***tableP, char name
 
     // Descripcion alogirtmo
     fprintf(f, "\\section*{Algoritmo de Floyd}\n");
-    fprintf(f, "Descripcion\n\n");
-    fprintf(f, "\\bigskip\n");
+    fprintf(f,
+    "\n\n     Robert W. Floyd nació el 8 de junio de 1936 en New York, Estados Unidos y falleció el 25 de septiembre de 2001. "
+    "Fue un importante científico de la computación y recibió un Turing Award en 1978 por sus contribuciones a la teoría de lenguajes de programación, algoritmos y estructuras de datos. "
+    "Estudió Artes Liberales y Física en la Universidad de Chicago y realizó publicaciones muy influyentes en el campo de la informática. "
+    "Uno de sus trabajos más importantes fue el desarrollo del algoritmo de Floyd-Warshall en 1962~\\cite{hosch2024}.\n\n"
+    "El algoritmo de Floyd es un algoritmo de grafos con el cual se puede encontrar la ruta más corta entre todos los pares de nodos en un grafo ponderado. "
+    "Este algoritmo tiene complejidad temporal $O(n^3)$ y espacial $O(n^2)$, donde $n$ es el número de nodos en el grafo. "
+    "Para llevar a cabo el cálculo de la ruta más corta, el algoritmo utiliza dos matrices: una matriz de distancias (D) y una matriz de predecesores (P), que muestra el camino más corto~\\cite{mukhopadhyay2023}.\n\n"
+    "\\bigskip\n"
+    );
 
     // Dibujo del grafo con tikz (nodos en círculo)
     fprintf(f, "\\section*{Problema}\n");
@@ -693,6 +707,12 @@ void write_tex(const char *fname, int n, int ***tableD, int ***tableP, char name
         }
     fprintf(f, "\\hline\n\\end{longtable}\n");
 
+    fprintf(f, "\\renewcommand{\\refname}{Referencias}\n");
+    fprintf(f, "\\begin{thebibliography}{9}\n");
+    fprintf(f, "\\bibitem{hosch2024} Hosch. W. (2024). Robert W. Floyd. Encyclopedia Britannica. \\\\ \\url{https://www.britannica.com/biography/Robert-W-Floyd}\n");
+    fprintf(f, "\\bibitem{mukhopadhyay2023} Mukhopadhyay, P. (2023). Floyd-Warshall Algorithm. Medium. \\\\ \\url{https://medium.com/@mukhopadhyaypushan42/floyd-warshall-algorithm-7f09533b1878}\n");
+    fprintf(f, "\\end{thebibliography}\n");
+
     fprintf(f, "\\end{document}\n");
     fclose(f);
 }
@@ -800,6 +820,22 @@ void floyd(GtkWidget *btn, gpointer data)
 int main(int argc, char *argv[])
 {
     gtk_init(&argc, &argv);
+
+    // CSS para headers
+    const char *css_data =
+        ".header-entry {"
+        " background: #b9f6ca;"
+        " color: #222;"
+        " font-weight: bold;"
+        "}";
+    GtkCssProvider *provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_data(provider, css_data, -1, NULL);
+    gtk_style_context_add_provider_for_screen(
+        gdk_screen_get_default(),
+        GTK_STYLE_PROVIDER(provider),
+        GTK_STYLE_PROVIDER_PRIORITY_USER
+    );
+    g_object_unref(provider);
 
     // cargar interfaz
     GtkBuilder *builder = gtk_builder_new_from_file("PR01/floyd.glade");
