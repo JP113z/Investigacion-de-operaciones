@@ -285,7 +285,7 @@ int nodes_dialog()
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 12);
     gtk_container_add(GTK_CONTAINER(content), vbox);
 
-    GtkWidget *label = gtk_label_new("Ingrese cantidad de nodos (1-8):");
+    GtkWidget *label = gtk_label_new("Ingrese cantidad de nodos:");
     gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 8);
     gtk_widget_set_halign(label, GTK_ALIGN_CENTER);
 
@@ -460,7 +460,7 @@ char *build_route_string(int i, int j, int **P, char names[][32], int n)
     return res;
 }
 
-// -Escribe los resultados en el archivo Latex 
+// -Escribe los resultados en el archivo Latex
 void write_tex(const char *fname, int n, int ***tableD, int ***tableP, char names[][32], int steps)
 {
     FILE *f = fopen(fname, "w");
@@ -493,15 +493,14 @@ void write_tex(const char *fname, int n, int ***tableD, int ***tableP, char name
     // Descripcion alogirtmo
     fprintf(f, "\\section*{Algoritmo de Floyd}\n");
     fprintf(f,
-    "\n\n     Robert W. Floyd nació el 8 de junio de 1936 en New York, Estados Unidos y falleció el 25 de septiembre de 2001. "
-    "Fue un importante científico de la computación y recibió un Turing Award en 1978 por sus contribuciones a la teoría de lenguajes de programación, algoritmos y estructuras de datos. "
-    "Estudió Artes Liberales y Física en la Universidad de Chicago y realizó publicaciones muy influyentes en el campo de la informática. "
-    "Uno de sus trabajos más importantes fue el desarrollo del algoritmo de Floyd-Warshall en 1962~\\cite{hosch2024}.\n\n"
-    "El algoritmo de Floyd es un algoritmo de grafos con el cual se puede encontrar la ruta más corta entre todos los pares de nodos en un grafo ponderado. "
-    "Este algoritmo tiene complejidad temporal $O(n^3)$ y espacial $O(n^2)$, donde $n$ es el número de nodos en el grafo. "
-    "Para llevar a cabo el cálculo de la ruta más corta, el algoritmo utiliza dos matrices: una matriz de distancias (D) y una matriz de predecesores (P), que muestra el camino más corto~\\cite{mukhopadhyay2023}.\n\n"
-    "\\bigskip\n"
-    );
+            "\n\n     Robert W. Floyd nació el 8 de junio de 1936 en New York, Estados Unidos y falleció el 25 de septiembre de 2001. "
+            "Fue un importante científico de la computación y recibió un Turing Award en 1978 por sus contribuciones a la teoría de lenguajes de programación, algoritmos y estructuras de datos. "
+            "Estudió Artes Liberales y Física en la Universidad de Chicago y realizó publicaciones muy influyentes en el campo de la informática. "
+            "Uno de sus trabajos más importantes fue el desarrollo del algoritmo de Floyd-Warshall en 1962~\\cite{hosch2024}.\n\n"
+            "El algoritmo de Floyd es un algoritmo de grafos con el cual se puede encontrar la ruta más corta entre todos los pares de nodos en un grafo ponderado. "
+            "Este algoritmo tiene complejidad temporal $O(n^3)$ y espacial $O(n^2)$, donde $n$ es el número de nodos en el grafo. "
+            "Para llevar a cabo el cálculo de la ruta más corta, el algoritmo utiliza dos matrices: una matriz de distancias (D) y una matriz de predecesores (P), que muestra el camino más corto~\\cite{mukhopadhyay2023}.\n\n"
+            "\\bigskip\n");
 
     // Dibujo del grafo con tikz (nodos en círculo)
     fprintf(f, "\\section*{Problema}\n");
@@ -519,7 +518,7 @@ void write_tex(const char *fname, int n, int ***tableD, int ***tableP, char name
         fprintf(f, "\\node (N%d) at (%.3f, %.3f) {%s};\n", i, x, y, names[i]);
     }
 
-    // aristas con pesos 
+    // aristas con pesos
     int **D0 = tableD[0];
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
@@ -779,7 +778,7 @@ void floyd(GtkWidget *btn, gpointer data)
                 }
             }
         }
-        // almacenar snapshot 
+        // almacenar snapshot
         tableD[k + 1] = alloc_matrix(n);
         tableP[k + 1] = alloc_matrix(n);
         for (int i = 0; i < n; i++)
@@ -816,7 +815,6 @@ void floyd(GtkWidget *btn, gpointer data)
     free_matrix(P, n);
 }
 
-
 int main(int argc, char *argv[])
 {
     gtk_init(&argc, &argv);
@@ -833,8 +831,7 @@ int main(int argc, char *argv[])
     gtk_style_context_add_provider_for_screen(
         gdk_screen_get_default(),
         GTK_STYLE_PROVIDER(provider),
-        GTK_STYLE_PROVIDER_PRIORITY_USER
-    );
+        GTK_STYLE_PROVIDER_PRIORITY_USER);
     g_object_unref(provider);
 
     // cargar interfaz
