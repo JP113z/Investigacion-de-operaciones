@@ -4,6 +4,9 @@
 #include <string.h>
 #include <math.h>
 
+// Knapsack 1/0, Bounded y Unbounded
+// implementar un dialogo primero que pida la capacidad maxima de la mochila (entre 0 y 20) y la cantidad de objetos a considerar (entre 1 y 10). con boton de aceptar y cargar
+// luego despliega la ventana para editar el costo, valor y cantidad disponible de cada objeto (permitiendo el infinito con un *). con boton de ejecutar, guardar y cerrar.
 
 int main(int argc, char *argv[])
 {
