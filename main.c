@@ -11,6 +11,11 @@ void on_btn_clicked_floyd(GtkWidget *GtkWidget, gpointer d)
     system("./PR01/floyd &");
 }
 
+void on_btn_clicked_knapsack(GtkWidget *GtkWidget, gpointer d)
+{
+    system("./Knapsack/knapsack &");
+}
+
 void on_btn_exit_clicked(GtkWidget *GtkWidget, gpointer d)
 {
     gtk_main_quit();
@@ -31,6 +36,7 @@ int main(int argc, char *argv[])
         "on_btn_exit_clicked", G_CALLBACK(on_btn_exit_clicked),
         "on_btn_clicked", G_CALLBACK(on_btn_clicked),
         "on_btn_clicked_floyd", G_CALLBACK(on_btn_clicked_floyd),
+        "on_btn_clicked_knapsack", G_CALLBACK(on_btn_clicked_knapsack),
         NULL);
 
     gtk_builder_connect_signals(builder, NULL);

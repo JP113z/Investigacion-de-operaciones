@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = $(shell pkg-config --cflags gtk+-3.0)
 LIBS = $(shell pkg-config --libs gtk+-3.0)
 
-TARGETS = main pending PR01/floyd
+TARGETS = main pending PR01/floyd Knapsack/knapsack
 
 all: $(TARGETS)
 
@@ -15,5 +15,8 @@ pending: pending.c
 PR01/floyd: PR01/floyd.c
 	$(CC) PR01/floyd.c -o PR01/floyd $(CFLAGS) $(LIBS) -lm
 
+Knapsack/knapsack: Knapsack/knapsack.c
+	$(CC) Knapsack/knapsack.c -o Knapsack/knapsack $(CFLAGS) $(LIBS) -lm
+
 clean:
-	rm -f main pending PR01/floyd
+	rm -f main pending PR01/floyd Knapsack/knapsack
