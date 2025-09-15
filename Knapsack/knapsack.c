@@ -24,45 +24,61 @@ typedef struct {
 } Object;
 Object objects[MAX_OBJECTS];
 
-// DP tables (dimensionadas dinámicamente según n y W)
-int table[MAX_OBJECTS + 1][MAX_CAPACITY + 1]; // dp[i][w] = óptimo usando primeros i objetos con capacidad w
-int copies[MAX_OBJECTS + 1][MAX_CAPACITY + 1]; // k elegido para dp[i][w]
-int is_tie[MAX_OBJECTS + 1][MAX_CAPACITY + 1]; // 1 si hubo empate multiple para dp[i][w]
+int table[MAX_CAPACITY + 1][MAX_OBJECTS + 1];   // Table[i][j] = capacidad i con j objetos
+int copies[MAX_CAPACITY + 1][MAX_OBJECTS + 1];  // k usado
+int is_tie[MAX_CAPACITY + 1][MAX_OBJECTS + 1];  // empate
 
 // Prototipos
 void on_aceptar_clicked(GtkButton *button, gpointer dialog);
 void knapsack(const char *filename, int n, int W, Object *objects);
-void collect_solutions(int i, int w, int *curr, int n, int W, int **solutions, int *sol_count, int *sol_capacity);
+void get_solutions(int i, int j, int *current, int n, int **solutions, int *solution_count, int *sol_capacity);
 
 // Dialogo para preguntar capacidad de la mochila y cantidad de objetos
 int initial_dialog()
 {
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("Configuración de la mochila",
-                                                    NULL,
-                                                    GTK_DIALOG_MODAL,
-                                                    "_Aceptar", GTK_RESPONSE_OK,
-                                                    "_Cancelar", GTK_RESPONSE_CANCEL,
-                                                    NULL);
-
+    GtkWidget *dialog = gtk_dialog_new();
+    gtk_window_set_title(GTK_WINDOW(dialog), "Configuración de la mochila");
+    gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
     GtkWidget *content = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
     GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
     gtk_container_set_border_width(GTK_CONTAINER(vbox), 12);
     gtk_container_add(GTK_CONTAINER(content), vbox);
 
+    // Capacidad
     GtkWidget *label1 = gtk_label_new("Capacidad máxima de la mochila (0-20):");
     gtk_box_pack_start(GTK_BOX(vbox), label1, FALSE, FALSE, 8);
+    gtk_widget_set_halign(label1, GTK_ALIGN_CENTER);
     GtkWidget *spin_capacity = gtk_spin_button_new_with_range(0, MAX_CAPACITY, 1);
     gtk_box_pack_start(GTK_BOX(vbox), spin_capacity, FALSE, FALSE, 8);
+    gtk_widget_set_halign(spin_capacity, GTK_ALIGN_CENTER);
 
+    // Cantidad de objetos
     GtkWidget *label2 = gtk_label_new("Cantidad de objetos (1-10):");
     gtk_box_pack_start(GTK_BOX(vbox), label2, FALSE, FALSE, 8);
+    gtk_widget_set_halign(label2, GTK_ALIGN_CENTER);
     GtkWidget *spin_objects = gtk_spin_button_new_with_range(1, MAX_OBJECTS, 1);
     gtk_box_pack_start(GTK_BOX(vbox), spin_objects, FALSE, FALSE, 8);
+    gtk_widget_set_halign(spin_objects, GTK_ALIGN_CENTER);
+
+    // Botón aceptar y cargar
+    GtkWidget *btn_aceptar = gtk_button_new_with_label("Aceptar");
+    gtk_box_pack_start(GTK_BOX(vbox), btn_aceptar, FALSE, FALSE, 8);
+    gtk_widget_set_halign(btn_aceptar, GTK_ALIGN_CENTER);
+    gtk_widget_set_tooltip_text(btn_aceptar, "Genera una tabla con la cantidad de objetos y capacidad seleccionados.");
+    GtkWidget *btn_load = gtk_button_new_with_label("Cargar");
+    gtk_box_pack_end(GTK_BOX(vbox), btn_load, FALSE, FALSE, 8);
+    gtk_widget_set_halign(btn_load, GTK_ALIGN_CENTER);
+    gtk_widget_set_tooltip_text(btn_load, "Carga un archivo .txt con un ejercicio previamente guardado.");
 
     g_object_set_data(G_OBJECT(dialog), "spin_capacity", spin_capacity);
     g_object_set_data(G_OBJECT(dialog), "spin_objects", spin_objects);
 
+    // Señales
+    g_signal_connect(btn_aceptar, "clicked", G_CALLBACK(on_aceptar_clicked), dialog);
+    //g_signal_connect(btn_load, "clicked", G_CALLBACK(on_load_button_clicked), dialog);
+
     gtk_widget_show_all(dialog);
+
     int response = gtk_dialog_run(GTK_DIALOG(dialog));
     if (response == GTK_RESPONSE_OK)
     {
@@ -73,8 +89,15 @@ int initial_dialog()
         gtk_widget_destroy(dialog);
         return 1;
     }
+    
     gtk_widget_destroy(dialog);
     return 0;
+}
+
+
+void on_aceptar_clicked(GtkButton *button, gpointer dialog)
+{
+    gtk_dialog_response(GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 }
 
 // Validar cantidad, solo enteros o infinito (*)
@@ -121,7 +144,7 @@ void edit_objects()
         gtk_grid_attach(GTK_GRID(object_table), lbl, j, 0, 1, 1);
     }
 
-    // Crear filas con entries y guardarlas en arrays globales
+    // Crear filas y guardar sus valores 
     for (int i = 0; i < object_count; i++)
     {
         char name[8];
@@ -171,14 +194,14 @@ void on_run_clicked(GtkButton *button, gpointer user_data)
         if (objects[i].value < 0) { g_printerr("Valor negativo en objeto %d\n", i+1); return; }
     }
 
-    // Ejecutar DP y generar TEX/PDF
+    // Ejecutar knapsack
     knapsack("knapsack.tex", object_count, backpack_capacity, objects);
 }
 
 // Escribir el archivo .tex 
-void write_file(const char *filename, int n, int W, Object *objects, int sol_count, int **solutions)
+void write_file(const char *filename, int n, int W, Object *objects, int solution_count, int **solutions)
 {
-    FILE *f = fopen(filename, "w");
+    FILE *f = fopen(filename, "i");
     if (!f) {
         g_printerr("No pude crear %s\n", filename);
         return;
@@ -210,10 +233,10 @@ void write_file(const char *filename, int n, int W, Object *objects, int sol_cou
     fprintf(f, "\\section*{Tabla de trabajo}\n");
     fprintf(f, "Color: {\\color{green}verde} = se toma el objeto en esa celda, {\\color{red}rojo} = no se toma, {\\color{yellow}amarillo} = empate.\\\\\n");
 
+    // Muestra la tabla vista en clase con soluciones para cada objeto
     for (int i = 1; i <= n; i++) {
-        fprintf(f, "\\subsection*{Hasta el objeto %d}\n", i);
+        fprintf(f, "\\subsection*{Objeto %d}\n", i);
 
-        // tabla con columnas = objetos 1..i, filas = pesos
         fprintf(f, "\\begin{longtable}{c");
         for (int j = 1; j <= i; j++) fprintf(f, "c");
         fprintf(f, "}\n");
@@ -226,14 +249,13 @@ void write_file(const char *filename, int n, int W, Object *objects, int sol_cou
         }
         fprintf(f, "\\\\\n\\midrule\n");
 
-        // Filas = pesos
-        for (int w = 0; w <= W; w++) {
-            fprintf(f, "%d ", w);
+        // Muestra las filas de la tabla
+        for (int i = 0; i <= W; i++) {
+            fprintf(f, "%d ", i);
             for (int j = 1; j <= i; j++) {
-                int val = table[j][w];
-                int k = copies[j][w];
-                int tie = is_tie[j][w];
-
+                int val = table[i][j];
+                int k   = copies[i][j];
+                int tie = is_tie[i][j];
                 const char *color;
                 if (tie) color = "yellow!50";
                 else if (k > 0) color = "green!40";
@@ -252,23 +274,22 @@ void write_file(const char *filename, int n, int W, Object *objects, int sol_cou
         fprintf(f, "\\end{longtable}\n");
     }
 
-    // Mostrar soluciones óptimas ---
-    fprintf(f, "\\section*{Solución(es) óptima(s)}\n");
-    int bestZ = table[n][W];
-    fprintf(f, "Valor óptimo $Z^* = %d$\\\\\n", bestZ);
-    fprintf(f, "Todas las soluciones óptimas (vectores $x_1,\\dots,x_n$) se listan a continuación: \\\\ \n");
+    // Mostrar soluciones óptimas
+    fprintf(f, "\\section*{Soluciones óptimas}\n");
+    int bestZ = table[W][n];
+    fprintf(f, "El valor óptimo es de $Z = %d$ con las siguientes cantidades de cada objeto:\\\\\n", bestZ);
 
-    if (sol_count == 0) {
+    if (solution_count == 0) {
         fprintf(f, "No se encontraron soluciones (algo anduvo mal en el DP).\\\\\n");
     } else {
         fprintf(f, "\\begin{itemize}\n");
-        for (int s = 0; s < sol_count; s++) {
-            fprintf(f, "\\item $(");
+        for (int s = 0; s < solution_count; s++) {
+            fprintf(f, "\\item ");
             for (int i = 0; i < n; i++) {
-                if (i < n-1) fprintf(f, "%d, ", solutions[s][i]);
-                else fprintf(f, "%d", solutions[s][i]);
+                fprintf(f, "x_{%d} = %d", i+1, solutions[s][i]);
+                if (i < n-1) fprintf(f, ", ");
             }
-            fprintf(f, ")$\\\\\n");
+            fprintf(f, "\\\\\n");
         }
         fprintf(f, "\\end{itemize}\n");
     }
@@ -277,68 +298,68 @@ void write_file(const char *filename, int n, int W, Object *objects, int sol_cou
 }
 
 // Resuelve knapsack y llama a generar el archivo
-void knapsack(const char *filename, int n, int W, Object *objects)
+void knapsack(const char *filename, int n, int capacity, Object *objects)
 {
-    // --- Ejecutar DP y almacenar tablas auxiliares (chosen_k y tie_flag) ---
-    // Inicializar dp[0][w] = 0
-    for (int w = 0; w <= W; w++) {
-        table[0][w] = 0;
-        copies[0][w] = 0;
-        is_tie[0][w] = 0;
+    // Inicializar fila capacidad=0
+    for (int j = 0; j <= n; j++) {
+        table[0][j] = 0;
+        copies[0][j] = 0;
+        is_tie[0][j] = 0;
     }
 
-    // Para cada objeto i = 1..n
-    for (int i = 1; i <= n; i++) {
-        int c = objects[i-1].cost;
-        int v = objects[i-1].value;
-        int quantity = objects[i-1].quantity; // INF_QTY => unbounded
+    // Para cada capacidad i y objeto j aplica la ecuacion de Bellman
+    for (int i = 1; i <= capacity; i++) {
+        table[i][0] = 0; // 0 objetos = 0 valor
+        for (int j = 1; j <= n; j++) { 
+            int c = objects[j-1].cost;
+            int v = objects[j-1].value;
+            int quantity = objects[j-1].quantity;
+            int best_case = INT_MIN; // mejor valor, se utiliza INT_MIN como un minimo imposible para probar
+            int best_copies = 0;
+            int tie = 0;
+            int max_copies;
 
-        for (int w = 0; w <= W; w++) {
-            int best = INT_MIN;
-            int best_k = 0;
-            int ties = 0;
-
-            int max_k;
-            if (quantity == INF) max_k = w / c;
+            // Calcular maximo de copias k que se pueden usar
+            if (quantity == INF) max_copies = i / c;
             else {
-                max_k = quantity;
-                if (max_k > w / c) max_k = w / c;
+                max_copies = quantity;
+                if (max_copies > i / c) max_copies = i / c;
             }
-            // probar todos los k posibles
-            for (int k = 0; k <= max_k; k++) {
-                int rem = w - k * c;
-                int cand = table[i-1][rem] + k * v;
-                if (cand > best) {
-                    best = cand;
-                    best_k = k;
-                    ties = 0;
-                } else if (cand == best) {
-                    // si k distinto produce mismo best -> empate
-                    if (k != best_k) ties = 1;
+
+            // Probar todas las casos posibles de k
+            for (int k = 0; k <= max_copies; k++) {
+                int caseValue = table[i - k*c][j-1] + k*v;
+                if (caseValue > best_case) {
+                    best_case = caseValue;
+                    best_copies = k;
+                    tie = 0;
+                } else if (caseValue == best_case && k != best_copies) { // si hay empate
+                    tie = 1; 
                 }
             }
-            if (best == INT_MIN) best = INT_MIN + 1; // por seguridad
-            table[i][w] = best;
-            copies[i][w] = best_k;
-            is_tie[i][w] = ties;
+
+            // 
+            if (best_case == INT_MIN) best_case = INT_MIN + 1;
+            table[i][j] = best_case;
+            copies[i][j] = best_copies;
+            is_tie[i][j] = tie;
         }
     }
 
-    // --- Recolectar todas las soluciones óptimas por backtracking enumerando k's que producen dp[i][w] ---
+    // Soluciones optimas con backtracking
     int max_solutions = 10000;
     int **solutions = malloc(sizeof(int*) * max_solutions);
     for (int i = 0; i < max_solutions; i++) solutions[i] = NULL;
-    int sol_count = 0;
+    int solution_count = 0;
+    int *current = calloc(n, sizeof(int));
+    get_solutions(capacity, n, current, n, solutions, &solution_count, &max_solutions);
 
-    int *curr = calloc(n, sizeof(int));
-    collect_solutions(n, W, curr, n, W, solutions, &sol_count, &max_solutions);
+    // Escribir archivo con las tablas y soluciones
+    write_file(filename, n, capacity, objects, solution_count, solutions);
 
-    // --- Escribir archivo .tex usando la función separada ---
-    write_file(filename, n, W, objects, sol_count, solutions);
-
-    // Liberar soluciones
-    free(curr);
-    for (int s = 0; s < sol_count; s++) free(solutions[s]);
+    // Liberar
+    free(current);
+    for (int s = 0; s < solution_count; s++) free(solutions[s]);
     free(solutions);
 
     // Compilar pdflatex y abrir PDF
@@ -347,47 +368,32 @@ void knapsack(const char *filename, int n, int W, Object *objects)
     system("evince -f knapsack.pdf &");
 }
 
-// --- Recolectar soluciones: backtracking que toma todas las k que pueden producir dp[i][w] ---
-// - i: índice actual (n .. 0)
-// - w: capacidad actual
-void collect_solutions(int i, int w, int *curr, int n, int W, int **solutions, int *sol_count, int *sol_capacity)
-{
-    if (i == 0) {
-        // almacenamos curr copia
-        if (*sol_count >= *sol_capacity) {
-            int newcap = (*sol_capacity) * 2;
-            if (newcap < 16) newcap = 16;
-            solutions = realloc(solutions, sizeof(int*) * newcap);
-        }
-        int *sol = malloc(sizeof(int) * n);
-        for (int j = 0; j < n; j++) sol[j] = curr[j];
-        solutions[*sol_count] = sol;
-        (*sol_count)++;
+// Recursivo para encontrar todas las soluciones optimas con las k que cumplan
+void get_solutions(int i, int j, int *current, int n, int **solutions, int *solution_count, int *max_solutions) {
+    
+    if (j == 0) {
+        // si ya no hay objetos, guarda la solucion actual que es optima
+        int *solution = malloc(sizeof(int)*n);
+        for (int x = 0; x < n; x++) solution[x] = current[x];
+        solutions[*solution_count] = solution;
+        (*solution_count)++;
         return;
     }
 
-    int idx = i;
-    int c = objects[i-1].cost;
-    int v = objects[i-1].value;
-    int quantity = objects[i-1].quantity;
+    int c = objects[j-1].cost;
+    int v = objects[j-1].value;
+    int quantity = objects[j-1].quantity;
+    // define maximo de copias k que se pueden usar
+    int max_copies = (quantity == INF ? i/c : (quantity < i/c ? quantity : i/c));
+    int objective = table[i][j]; // valor objetivo para comparar
 
-    int max_k;
-    if (quantity == INF) max_k = w / c;
-    else {
-        max_k = quantity;
-        if (max_k > w / c) max_k = w / c;
-    }
-
-    int target = table[i][w];
-
-    // para cada k posible que cumpla target = dp[i-1][w - k*c] + k*v
-    for (int k = 0; k <= max_k; k++) {
-        int rem = w - k * c;
-        int candidate = table[i-1][rem] + k * v;
-        if (candidate == target) {
-            curr[i-1] = k; // asignar cantidad para el objeto i
-            collect_solutions(i-1, rem, curr, n, W, solutions, sol_count, sol_capacity);
-            curr[i-1] = 0; // limpiar
+    // Probar todas las k que den el valor objetivo para ir mejorando
+    for (int k = 0; k <= max_copies; k++) {
+        int caseValue = table[i - k*c][j-1] + k*v;
+        if (caseValue == objective) {
+            current[j-1] = k;
+            get_solutions(i - k*c, j-1, current, n, solutions, solution_count, max_solutions);
+            current[j-1] = 0;
         }
     }
 }
