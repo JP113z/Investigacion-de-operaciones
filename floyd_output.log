@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.8)  9 SEP 2025 16:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.8)  16 SEP 2025 17:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -504,11 +504,10 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 25.
  [2] [3] [4] [5] [6]
-[7] [8] [9] [10] [11] [12] [13] [14]
 ! Undefined control sequence.
 <recently read> \url 
                      
-l.536 .... Floyd. Encyclopedia Britannica. \\ \url
+l.138 .... Floyd. Encyclopedia Britannica. \\ \url
                                                   {https://www.britannica.co...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -519,7 +518,7 @@ and I'll forget about whatever was undefined.
 ! Undefined control sequence.
 <recently read> \url 
                      
-l.537 ...Floyd-Warshall Algorithm. Medium. \\ \url
+l.139 ...Floyd-Warshall Algorithm. Medium. \\ \url
                                                   {https://medium.com/@mukho...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -527,20 +526,20 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-[15] (./floyd_output.aux)
+[7] (./floyd_output.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 12799 strings out of 476182
- 263112 string characters out of 5795596
- 1975975 words of memory out of 5000000
- 34604 multiletter control sequences out of 15000+600000
+ 12726 strings out of 476182
+ 261995 string characters out of 5795596
+ 1929975 words of memory out of 5000000
+ 34531 multiletter control sequences out of 15000+600000
  562929 words of font info for 52 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 102i,8n,107p,592b,884s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,8n,107p,592b,882s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
@@ -548,10 +547,10 @@ ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmsy10.pfb>
-Output written on floyd_output.pdf (15 pages, 104775 bytes).
+Output written on floyd_output.pdf (7 pages, 90937 bytes).
 PDF statistics:
- 91 PDF objects out of 1000 (max. 8388607)
- 59 compressed objects within 1 object stream
+ 66 PDF objects out of 1000 (max. 8388607)
+ 42 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -40,7 +40,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
-            <property name="tooltip-text" translatable="yes">Algoritmo de análisis sobre grafos para encontrar el camino mínimo en grafos dirigidos ponderados.</property>
+            <property name="tooltip-text" translatable="yes">Método de análisis de grafos que permite calcular las distancias más cortas entre todos los pares de nodos en un grafo dirigido y con pesos en sus aristas.  Útil en problemas de planificación, optimización de rutas y diseño de redes, ya que considera de manera sistemática todos los posibles caminos para garantizar la solución más corta.</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="margin-top">45</property>
@@ -55,18 +55,18 @@
         </child>
         <child>
           <object class="GtkButton" id="button2">
-            <property name="label" translatable="yes">TBA</property>
+            <property name="label" translatable="yes">El problema de la mochila (Knapasck)</property>
             <property name="width-request">110</property>
             <property name="height-request">35</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
-            <property name="tooltip-text" translatable="yes">Esta funcion aun no esta implementada, !Vuelve mas tarde¡</property>
+            <property name="tooltip-text" translatable="yes">Es un problema clásico de optimización combinatoria donde se busca seleccionar, de entre un conjunto de objetos con un peso y un valor, aquellos que maximicen el beneficio sin sobrepasar la capacidad de la mochila.</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="margin-top">25</property>
             <property name="margin-bottom">25</property>
-            <signal name="clicked" handler="on_btn_clicked" swapped="no"/>
+            <signal name="clicked" handler="on_btn_clicked_knapsack" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
