@@ -1,10 +1,19 @@
-Proyecto 0
+Proyecto 1
 Realizado por:
 ~ Jose Pablo Fernandez Jimenez - 2023117752
 ~ Diego Duran Rodriguez - 2022437509
 
-El proyecto consiste en un menu de distintos algoritmos de Programacion Dinamica que se pueden ejecutar de forma independiente.
-Por ahora todos los botones ejecutan el programa pending ya que no se encuentran implementados los algoritmos.
+PR00:
+El proyecto pasado consistio en un menu de distintos algoritmos de Programacion Dinamica que se pueden ejecutar de forma independiente.
+Donde 3 de los botones ejecutan el programa pending ya que no se encuentran implementados los algoritmos.
+
+PR01:
+Este proyecto utiliza las bases creadas en el PR00. Ahora, al seleccionar la primera opción del menú llamada "Rutas Óptimas (Algoritmo de Floyd)", nos llevará a una nueva interfaz en donde el usuario podrá crear su propio problema de rutas, y el programa le dirá la ruta más óptima ejecutando el algoritmo de Floyd.
+
+PR02:
+Ahora se ha implementado el problema de la mochila o Knapsack Problem. Este se lanza desde la misma interfaz creada en el PR00, donde la mochila puede cargar 20 de peso máximo y podemos crear un máximo de 10 objetos. Este algoritmo utiliza la ecuación de Bellman para ser resuelto de forma eficiente.
+
+El programa cuenta con funciones de guardado y cargado.
 
 EL proyecto fue creado utilizando GTK, Glade y el lenguaje C.
 
