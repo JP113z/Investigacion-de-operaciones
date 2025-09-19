@@ -1,0 +1,14 @@
+10
+3
+Botella de agua
+4
+11
+*
+Medias
+3
+7
+*
+Paquete de galletas
+5
+12
+*

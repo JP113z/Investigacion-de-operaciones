@@ -6,6 +6,7 @@
 \usepackage[table]{xcolor}
 \usepackage{longtable}
 \usepackage{geometry}
+\usepackage{pdflscape}
 \geometry{margin=0.8in}
 \begin{document}
 \begin{center}
@@ -45,91 +46,92 @@ El procedimiento general es el siguiente:
 \bigskip
 \section*{Problema}
 Capacidad de la mochila: $W = 10$\\
-Número de objetos: $n = 4$\\
-\begin{itemize}
-\item Objeto 1: $c_{1}=2$, $v_{1}=10$, $q_{1}=3$\\
-\item Objeto 2: $c_{2}=3$, $v_{2}=3$, $q_{2}=1$\\
-\item Objeto 3: $c_{3}=7$, $v_{3}=15$, $q_{3}=1$\\
-\item Objeto 4: $c_{4}=4$, $v_{4}=4$, $q_{4}=1$\\
-\end{itemize}
+Número de objetos: $n = 3$\\
+
+\textbf{Formulación matemática:}\\
+\begin{align*}
+\textbf{Maximizar Z = }\\
+11\,x_{\text{Botella de agua}} + 7\,x_{\text{Medias}} + 12\,x_{\text{Paquete de galletas}}
+\end{align*}
+\bigskip\bigskip
+\textbf{}\\
+\begin{align*}
+\textbf{Sujeto a:}\\
+4\,x_{\text{Botella de agua}} + 3\,x_{\text{Medias}} + 5\,x_{\text{Paquete de galletas}} &\leq 10
+\end{align*}
+\bigskip\bigskip
+\textbf{}\\
+\begin{align*}
+x_{\text{Botella de agua}} &\in \mathbb{Z}_{\geq 0}\\
+x_{\text{Medias}} &\in \mathbb{Z}_{\geq 0}\\
+x_{\text{Paquete de galletas}} &\in \mathbb{Z}_{\geq 0}\\
+\end{align*}
 \section*{Tabla de trabajo}
 Color: {\color{green}verde} = se toma el objeto, {\color{red}rojo} = no se toma, {\color{yellow}amarillo} = empate.\\
-\subsection*{Objeto 1}
+\begin{landscape}
+\subsection*{Objeto Botella de agua}
 \begin{longtable}{cc}
 \toprule
-Peso & Obj 1 \\
+Peso & Botella de agua \\
 \midrule
 0 & \cellcolor{red!20}0~(k=0) \\
 1 & \cellcolor{red!20}0~(k=0) \\
-2 & \cellcolor{green!40}10~(k=1) \\
-3 & \cellcolor{green!40}10~(k=1) \\
-4 & \cellcolor{green!40}20~(k=2) \\
-5 & \cellcolor{green!40}20~(k=2) \\
-6 & \cellcolor{green!40}30~(k=3) \\
-7 & \cellcolor{green!40}30~(k=3) \\
-8 & \cellcolor{green!40}30~(k=3) \\
-9 & \cellcolor{green!40}30~(k=3) \\
-10 & \cellcolor{green!40}30~(k=3) \\
+2 & \cellcolor{red!20}0~(k=0) \\
+3 & \cellcolor{red!20}0~(k=0) \\
+4 & \cellcolor{green!40}11~(k=1) \\
+5 & \cellcolor{green!40}11~(k=1) \\
+6 & \cellcolor{green!40}11~(k=1) \\
+7 & \cellcolor{green!40}11~(k=1) \\
+8 & \cellcolor{green!40}22~(k=2) \\
+9 & \cellcolor{green!40}22~(k=2) \\
+10 & \cellcolor{green!40}22~(k=2) \\
 \bottomrule
 \end{longtable}
-\subsection*{Objeto 2}
+\end{landscape}
+\begin{landscape}
+\subsection*{Objeto Medias}
 \begin{longtable}{ccc}
 \toprule
-Peso & Obj 1 & Obj 2 \\
+Peso & Botella de agua & Medias \\
 \midrule
 0 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
 1 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
-2 & \cellcolor{green!40}10~(k=1) & \cellcolor{red!20}10~(k=0) \\
-3 & \cellcolor{green!40}10~(k=1) & \cellcolor{red!20}10~(k=0) \\
-4 & \cellcolor{green!40}20~(k=2) & \cellcolor{red!20}20~(k=0) \\
-5 & \cellcolor{green!40}20~(k=2) & \cellcolor{red!20}20~(k=0) \\
-6 & \cellcolor{green!40}30~(k=3) & \cellcolor{red!20}30~(k=0) \\
-7 & \cellcolor{green!40}30~(k=3) & \cellcolor{red!20}30~(k=0) \\
-8 & \cellcolor{green!40}30~(k=3) & \cellcolor{red!20}30~(k=0) \\
-9 & \cellcolor{green!40}30~(k=3) & \cellcolor{green!40}33~(k=1) \\
-10 & \cellcolor{green!40}30~(k=3) & \cellcolor{green!40}33~(k=1) \\
+2 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
+3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}7~(k=1) \\
+4 & \cellcolor{green!40}11~(k=1) & \cellcolor{red!20}11~(k=0) \\
+5 & \cellcolor{green!40}11~(k=1) & \cellcolor{red!20}11~(k=0) \\
+6 & \cellcolor{green!40}11~(k=1) & \cellcolor{green!40}14~(k=2) \\
+7 & \cellcolor{green!40}11~(k=1) & \cellcolor{green!40}18~(k=1) \\
+8 & \cellcolor{green!40}22~(k=2) & \cellcolor{red!20}22~(k=0) \\
+9 & \cellcolor{green!40}22~(k=2) & \cellcolor{red!20}22~(k=0) \\
+10 & \cellcolor{green!40}22~(k=2) & \cellcolor{green!40}25~(k=2) \\
 \bottomrule
 \end{longtable}
-\subsection*{Objeto 3}
+\end{landscape}
+\begin{landscape}
+\subsection*{Objeto Paquete de galletas}
 \begin{longtable}{cccc}
 \toprule
-Peso & Obj 1 & Obj 2 & Obj 3 \\
+Peso & Botella de agua & Medias & Paquete de galletas \\
 \midrule
 0 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
 1 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
-2 & \cellcolor{green!40}10~(k=1) & \cellcolor{red!20}10~(k=0) & \cellcolor{red!20}10~(k=0) \\
-3 & \cellcolor{green!40}10~(k=1) & \cellcolor{red!20}10~(k=0) & \cellcolor{red!20}10~(k=0) \\
-4 & \cellcolor{green!40}20~(k=2) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) \\
-5 & \cellcolor{green!40}20~(k=2) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) \\
-6 & \cellcolor{green!40}30~(k=3) & \cellcolor{red!20}30~(k=0) & \cellcolor{red!20}30~(k=0) \\
-7 & \cellcolor{green!40}30~(k=3) & \cellcolor{red!20}30~(k=0) & \cellcolor{red!20}30~(k=0) \\
-8 & \cellcolor{green!40}30~(k=3) & \cellcolor{red!20}30~(k=0) & \cellcolor{red!20}30~(k=0) \\
-9 & \cellcolor{green!40}30~(k=3) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) \\
-10 & \cellcolor{green!40}30~(k=3) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) \\
+2 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
+3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{red!20}7~(k=0) \\
+4 & \cellcolor{green!40}11~(k=1) & \cellcolor{red!20}11~(k=0) & \cellcolor{red!20}11~(k=0) \\
+5 & \cellcolor{green!40}11~(k=1) & \cellcolor{red!20}11~(k=0) & \cellcolor{green!40}12~(k=1) \\
+6 & \cellcolor{green!40}11~(k=1) & \cellcolor{green!40}14~(k=2) & \cellcolor{red!20}14~(k=0) \\
+7 & \cellcolor{green!40}11~(k=1) & \cellcolor{green!40}18~(k=1) & \cellcolor{red!20}18~(k=0) \\
+8 & \cellcolor{green!40}22~(k=2) & \cellcolor{red!20}22~(k=0) & \cellcolor{red!20}22~(k=0) \\
+9 & \cellcolor{green!40}22~(k=2) & \cellcolor{red!20}22~(k=0) & \cellcolor{green!40}23~(k=1) \\
+10 & \cellcolor{green!40}22~(k=2) & \cellcolor{green!40}25~(k=2) & \cellcolor{red!20}25~(k=0) \\
 \bottomrule
 \end{longtable}
-\subsection*{Objeto 4}
-\begin{longtable}{ccccc}
-\toprule
-Peso & Obj 1 & Obj 2 & Obj 3 & Obj 4 \\
-\midrule
-0 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
-1 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
-2 & \cellcolor{green!40}10~(k=1) & \cellcolor{red!20}10~(k=0) & \cellcolor{red!20}10~(k=0) & \cellcolor{red!20}10~(k=0) \\
-3 & \cellcolor{green!40}10~(k=1) & \cellcolor{red!20}10~(k=0) & \cellcolor{red!20}10~(k=0) & \cellcolor{red!20}10~(k=0) \\
-4 & \cellcolor{green!40}20~(k=2) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) \\
-5 & \cellcolor{green!40}20~(k=2) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) \\
-6 & \cellcolor{green!40}30~(k=3) & \cellcolor{red!20}30~(k=0) & \cellcolor{red!20}30~(k=0) & \cellcolor{red!20}30~(k=0) \\
-7 & \cellcolor{green!40}30~(k=3) & \cellcolor{red!20}30~(k=0) & \cellcolor{red!20}30~(k=0) & \cellcolor{red!20}30~(k=0) \\
-8 & \cellcolor{green!40}30~(k=3) & \cellcolor{red!20}30~(k=0) & \cellcolor{red!20}30~(k=0) & \cellcolor{red!20}30~(k=0) \\
-9 & \cellcolor{green!40}30~(k=3) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) \\
-10 & \cellcolor{green!40}30~(k=3) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) & \cellcolor{green!40}34~(k=1) \\
-\bottomrule
-\end{longtable}
+\end{landscape}
 \section*{Soluciones óptimas}
-El valor óptimo es de $Z = 34$ con las siguientes cantidades de cada objeto:\\
+El valor óptimo es de $Z = 25$ con las siguientes cantidades de cada objeto:\\
 \begin{itemize}
-\item x_{1} = 3, x_{2} = 0, x_{3} = 0, x_{4} = 1\\
+\item x_{\text{Botella de agua}} = \textcolor{green}{1}, x_{\text{Medias}} = \textcolor{green}{2}, x_{\text{Paquete de galletas}} = 0\\
 \end{itemize}
 \renewcommand{\refname}{Referencias}
 \begin{thebibliography}{9}

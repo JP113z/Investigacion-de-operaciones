@@ -14,12 +14,14 @@ GtkWidget *object_table;
 int backpack_capacity = 0;
 int object_count = 0;
 
+GtkWidget *name_entries[MAX_OBJECTS];
 GtkWidget *cost_entries[MAX_OBJECTS];
 GtkWidget *value_entries[MAX_OBJECTS];
 GtkWidget *quantity_entries[MAX_OBJECTS];
 
 typedef struct
 {
+    char name[64];
     int cost;
     int value;
     int quantity;
@@ -147,20 +149,23 @@ void edit_objects()
     g_list_free(children);
 
     // Encabezados
-    const char *headers[] = {"Objeto", "Costo", "Valor", "Cantidad (*)"};
+    const char *headers[] = {"Nombre", "Costo", "Valor", "Cantidad (*)"};
     for (int j = 0; j < 4; j++)
     {
         GtkWidget *lbl = gtk_label_new(headers[j]);
         gtk_grid_attach(GTK_GRID(object_table), lbl, j, 0, 1, 1);
     }
 
-    // Crear filas y guardar sus valores
+    // Crear filas
     for (int i = 0; i < object_count; i++)
     {
-        char name[8];
-        snprintf(name, sizeof(name), "Obj %d", i + 1);
-        GtkWidget *lbl = gtk_label_new(name);
-        gtk_grid_attach(GTK_GRID(object_table), lbl, 0, i + 1, 1, 1);
+        // Nombre
+        GtkWidget *entry_name = gtk_entry_new();
+        char default_name[32];
+        snprintf(default_name, sizeof(default_name), "Obj %d", i + 1);
+        gtk_entry_set_text(GTK_ENTRY(entry_name), default_name);
+        gtk_grid_attach(GTK_GRID(object_table), entry_name, 0, i + 1, 1, 1);
+        name_entries[i] = entry_name;
 
         // Costo
         GtkWidget *entry_cost = gtk_entry_new();
@@ -189,9 +194,20 @@ void on_run_clicked(GtkButton *button, gpointer user_data)
     // Lee las entradas
     for (int i = 0; i < object_count; i++)
     {
+        const gchar *name = gtk_entry_get_text(GTK_ENTRY(name_entries[i]));
         const gchar *cost = gtk_entry_get_text(GTK_ENTRY(cost_entries[i]));
         const gchar *value = gtk_entry_get_text(GTK_ENTRY(value_entries[i]));
         const gchar *quantity = gtk_entry_get_text(GTK_ENTRY(quantity_entries[i]));
+
+        if (!name || strlen(name) == 0)
+        {
+            snprintf(objects[i].name, sizeof(objects[i].name), "Obj %d", i + 1);
+        }
+        else
+        {
+            strncpy(objects[i].name, name, sizeof(objects[i].name) - 1);
+            objects[i].name[sizeof(objects[i].name) - 1] = '\0';
+        }
 
         if (!cost || strlen(cost) == 0)
         {
@@ -249,6 +265,7 @@ void write_file(const char *filename, int n, int W, Object *objects, int solutio
     fprintf(f, "\\usepackage[table]{xcolor}\n");
     fprintf(f, "\\usepackage{longtable}\n");
     fprintf(f, "\\usepackage{geometry}\n");
+    fprintf(f, "\\usepackage{pdflscape}\n");
     fprintf(f, "\\geometry{margin=0.8in}\n");
     fprintf(f, "\\begin{document}\n");
 
@@ -297,18 +314,56 @@ void write_file(const char *filename, int n, int W, Object *objects, int solutio
     // --- Datos del problema ---
     fprintf(f, "\\section*{Problema}\n");
     fprintf(f, "Capacidad de la mochila: $W = %d$\\\\\n", W);
-    fprintf(f, "Número de objetos: $n = %d$\\\\\n", n);
-    fprintf(f, "\\begin{itemize}\n");
+    fprintf(f, "Número de objetos: $n = %d$\\\\\n\n", n);
+
+    // --- Formulación matemática ---
+    fprintf(f, "\\textbf{Formulación matemática:}\\\\\n");
+
+    // Función objetivo
+    fprintf(f, "\\begin{align*}\n");
+    fprintf(f, "\\textbf{Maximizar Z = }\\\\\n");
+    for (int idx = 0; idx < n; idx++)
+    {
+        fprintf(f, "%d\\,x_{\\text{%s}}", objects[idx].value, objects[idx].name);
+        if (idx < n - 1)
+        {
+            fprintf(f, " + ");
+            if ((idx + 1) % 3 == 0 && idx < n - 1)
+                fprintf(f, " \\\\\n&\\quad ");
+        }
+    }
+    fprintf(f, "\n\\end{align*}\n");
+    fprintf(f, "\\bigskip\\bigskip\n");
+
+    fprintf(f, "\\textbf{}\\\\\n");
+    fprintf(f, "\\begin{align*}\n");
+    fprintf(f, "\\textbf{Sujeto a:}\\\\\n");
+    for (int idx = 0; idx < n; idx++)
+    {
+        fprintf(f, "%d\\,x_{\\text{%s}}", objects[idx].cost, objects[idx].name);
+        if (idx < n - 1)
+        {
+            fprintf(f, " + ");
+            if ((idx + 1) % 3 == 0 && idx < n - 1)
+                fprintf(f, " \\\\\n&\\quad ");
+        }
+    }
+    fprintf(f, " &\\leq %d\n", W);
+    fprintf(f, "\\end{align*}\n");
+    fprintf(f, "\\bigskip\\bigskip\n");
+
+    // Restricciones de cantidades
+    fprintf(f, "\\textbf{}\\\\\n");
+    fprintf(f, "\\begin{align*}\n");
     for (int idx = 0; idx < n; idx++)
     {
         if (objects[idx].quantity == INF)
-            fprintf(f, "\\item Objeto %d: $c_{%d}=%d$, $v_{%d}=%d$, $q_{%d}=\\infty$\\\\\n",
-                    idx + 1, idx + 1, objects[idx].cost, idx + 1, objects[idx].value, idx + 1);
+            fprintf(f, "x_{\\text{%s}} &\\in \\mathbb{Z}_{\\geq 0}\\\\\n", objects[idx].name);
         else
-            fprintf(f, "\\item Objeto %d: $c_{%d}=%d$, $v_{%d}=%d$, $q_{%d}=%d$\\\\\n",
-                    idx + 1, idx + 1, objects[idx].cost, idx + 1, objects[idx].value, idx + 1, objects[idx].quantity);
+            fprintf(f, "0 \\leq x_{\\text{%s}} &\\leq %d,\\; x_{\\text{%s}} \\in \\mathbb{Z}\\\\\n",
+                    objects[idx].name, objects[idx].quantity, objects[idx].name);
     }
-    fprintf(f, "\\end{itemize}\n");
+    fprintf(f, "\\end{align*}\n");
 
     // --- Tabla de trabajo ---
     fprintf(f, "\\section*{Tabla de trabajo}\n");
@@ -316,14 +371,15 @@ void write_file(const char *filename, int n, int W, Object *objects, int solutio
 
     for (int obj_idx = 1; obj_idx <= n; obj_idx++)
     {
-        fprintf(f, "\\subsection*{Objeto %d}\n", obj_idx);
+        fprintf(f, "\\begin{landscape}\n");
+        fprintf(f, "\\subsection*{Objeto %s}\n", objects[obj_idx - 1].name);
         fprintf(f, "\\begin{longtable}{c");
         for (int col = 1; col <= obj_idx; col++)
             fprintf(f, "c");
         fprintf(f, "}\n");
         fprintf(f, "\\toprule\nPeso ");
         for (int col = 1; col <= obj_idx; col++)
-            fprintf(f, "& Obj %d ", col);
+            fprintf(f, "& %s ", objects[col - 1].name);
         fprintf(f, "\\\\\n\\midrule\n");
 
         for (int w = 0; w <= W; w++)
@@ -340,7 +396,9 @@ void write_file(const char *filename, int n, int W, Object *objects, int solutio
             fprintf(f, "\\\\\n");
         }
         fprintf(f, "\\bottomrule\n\\end{longtable}\n");
+        fprintf(f, "\\end{landscape}\n");
     }
+
     // --- Soluciones óptimas ---
     fprintf(f, "\\section*{Soluciones óptimas}\n");
     int bestZ = table[W][n];
@@ -358,7 +416,12 @@ void write_file(const char *filename, int n, int W, Object *objects, int solutio
             fprintf(f, "\\item ");
             for (int i = 0; i < n; i++)
             {
-                fprintf(f, "x_{%d} = %d", i + 1, solutions[s][i]);
+                int val = solutions[s][i];
+                if (val != 0)
+                    fprintf(f, "x_{\\text{%s}} = \\textcolor{green}{%d}", objects[i].name, val);
+                else
+                    fprintf(f, "x_{\\text{%s}} = %d", objects[i].name, val);
+
                 if (i < n - 1)
                     fprintf(f, ", ");
             }
@@ -540,6 +603,7 @@ void on_save_knapsack_clicked(GtkWidget *widget, gpointer data)
         // Guardar cada objeto
         for (int i = 0; i < object_count; i++)
         {
+            fprintf(f, "%s\n", gtk_entry_get_text(GTK_ENTRY(name_entries[i])));
             fprintf(f, "%s\n", gtk_entry_get_text(GTK_ENTRY(cost_entries[i])));
             fprintf(f, "%s\n", gtk_entry_get_text(GTK_ENTRY(value_entries[i])));
             fprintf(f, "%s\n", gtk_entry_get_text(GTK_ENTRY(quantity_entries[i])));
@@ -632,6 +696,10 @@ void on_load_knapsack_clicked(GtkWidget *widget, gpointer data)
     }
 
     // --- leer el resto del archivo en buffers temporales ---
+    char temp_names[MAX_OBJECTS][64];
+    for (int i = 0; i < object_count; i++)
+        temp_names[i][0] = '\0';
+
     int temp_costs[MAX_OBJECTS] = {0};
     int temp_values[MAX_OBJECTS] = {0};
     char temp_quantities[MAX_OBJECTS][32];
@@ -640,6 +708,13 @@ void on_load_knapsack_clicked(GtkWidget *widget, gpointer data)
 
     for (int i = 0; i < object_count; i++)
     {
+        // nombre
+        if (!fgets(buffer, sizeof(buffer), f))
+            break;
+        buffer[strcspn(buffer, "\r\n")] = 0;
+        strncpy(temp_names[i], buffer, sizeof(temp_names[i]) - 1);
+        temp_names[i][sizeof(temp_names[i]) - 1] = '\0';
+
         // costo
         if (!fgets(buffer, sizeof(buffer), f))
             break;
@@ -652,7 +727,7 @@ void on_load_knapsack_clicked(GtkWidget *widget, gpointer data)
         buffer[strcspn(buffer, "\r\n")] = 0;
         temp_values[i] = atoi(buffer);
 
-        // cantidad (puede ser "*" o número)
+        // cantidad
         if (!fgets(buffer, sizeof(buffer), f))
             break;
         buffer[strcspn(buffer, "\r\n")] = 0;
@@ -682,6 +757,8 @@ void on_load_knapsack_clicked(GtkWidget *widget, gpointer data)
 
         if (quantity_entries[i])
             gtk_entry_set_text(GTK_ENTRY(quantity_entries[i]), temp_quantities[i]);
+        if (name_entries[i])
+            gtk_entry_set_text(GTK_ENTRY(name_entries[i]), temp_names[i]);
     }
 
     // Señalamos que ya cargamos desde archivo para que main no vuelva a recrear la tabla

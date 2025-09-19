@@ -1,0 +1,14 @@
+7
+3
+Billetera
+5
+10
+1
+Llaves
+2
+3
+*
+Botella
+1
+1
+3
