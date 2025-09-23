@@ -10,7 +10,11 @@
 \begin{document}
 \begin{center}
 {\LARGE \textbf{Proyecto 1: Rutas Óptimas (Algoritmo de Floyd)}}\\[2cm]
+{\large Instituto Tecnológico de Costa Rica\\[1cm]
+\includegraphics[width=0.4\textwidth]{TEC.png}\\[2cm]
 {\large Investigación de Operaciones\\[2cm]
+{\large Profesor: }\\[1cm]
+{\large Francisco Jose Torres Roja}\\[2cm]
 {\large Integrantes: }\\[1cm]
 {\large Jose Pablo Fernandez Jimenez - 2023117752}\\[1cm]
 {\large Diego Durán Rodríguez - 2022437509}\\[2cm]
@@ -30,32 +34,58 @@ El algoritmo de Floyd es un algoritmo de grafos con el cual se puede encontrar l
 \begin{tikzpicture}[scale=1.2,
   every node/.style={circle, draw, fill=blue!10, minimum size=10mm},
   every edge/.style={draw, thick}]
-\node (N0) at (4.000, 0.000) {N1};
-\node (N1) at (-2.000, 3.464) {N2};
-\node (N2) at (-2.000, -3.464) {N3};
-\draw[->, thick, >=latex, red] (N0) to[bend right=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {4} (N1);
-\draw[->, thick, >=latex, red] (N0) to[bend left=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {10} (N2);
-\draw[->, thick, >=latex, red] (N1) to[bend right=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {5} (N2);
+\node (N0) at (4.000, 0.000) {A1};
+\node (N1) at (2.000, 3.464) {B2};
+\node (N2) at (-2.000, 3.464) {C3};
+\node (N3) at (-4.000, 0.000) {D4};
+\node (N4) at (-2.000, -3.464) {E5};
+\node (N5) at (2.000, -3.464) {F6};
+\draw[->, thick, >=latex, red] (N0) to[bend right=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {700} (N1);
+\draw[->, thick, >=latex, red] (N0) to[bend left=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {200} (N2);
+\draw[->, thick, >=latex, red] (N1) to[bend right=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {700} (N0);
+\draw[->, thick, >=latex, red] (N1) to[bend right=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {300} (N2);
+\draw[->, thick, >=latex, red] (N1) to[bend left=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {200} (N3);
+\draw[->, thick, >=latex, red] (N1) to[bend left=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {400} (N5);
+\draw[->, thick, >=latex, red] (N2) to[bend left=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {200} (N0);
+\draw[->, thick, >=latex, red] (N2) to[bend right=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {300} (N1);
+\draw[->, thick, >=latex, red] (N2) to[bend right=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {700} (N3);
+\draw[->, thick, >=latex, red] (N2) to[bend left=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {600} (N4);
+\draw[->, thick, >=latex, red] (N3) to[bend left=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {200} (N1);
+\draw[->, thick, >=latex, red] (N3) to[bend right=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {700} (N2);
+\draw[->, thick, >=latex, red] (N3) to[bend right=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {300} (N4);
+\draw[->, thick, >=latex, red] (N3) to[bend left=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {100} (N5);
+\draw[->, thick, >=latex, red] (N4) to[bend left=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {600} (N2);
+\draw[->, thick, >=latex, red] (N4) to[bend right=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {300} (N3);
+\draw[->, thick, >=latex, red] (N4) to[bend right=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {500} (N5);
+\draw[->, thick, >=latex, red] (N5) to[bend left=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {400} (N1);
+\draw[->, thick, >=latex, red] (N5) to[bend left=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {100} (N3);
+\draw[->, thick, >=latex, red] (N5) to[bend right=15] node[midway, above, draw=none, fill=none, rectangle, font=\small\sffamily] {500} (N4);
 \end{tikzpicture}
 \end{center}
 \newpage
 \section*{Tablas iniciales}
 \subsection*{D(0)}
 \begin{center}
-\begin{tabular}{c|ccc}
- & N1 & N2 & N3 \\ \hline
-N1 & 0 & 4 & 10 \\
-N2 & $\infty$ & 0 & 5 \\
-N3 & $\infty$ & $\infty$ & 0 \\
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & 700 & 200 & $\infty$ & $\infty$ & $\infty$ \\
+B2 & 700 & 0 & 300 & 200 & $\infty$ & 400 \\
+C3 & 200 & 300 & 0 & 700 & 600 & $\infty$ \\
+D4 & $\infty$ & 200 & 700 & 0 & 300 & 100 \\
+E5 & $\infty$ & $\infty$ & 600 & 300 & 0 & 500 \\
+F6 & $\infty$ & 400 & $\infty$ & 100 & 500 & 0 \\
 \end{tabular}
 \end{center}
 \subsection*{P(0)}
 \begin{center}
-\begin{tabular}{c|ccc}
- & N1 & N2 & N3 \\ \hline
-N1 & 0 & 0 & 0 \\
-N2 & 0 & 0 & 0 \\
-N3 & 0 & 0 & 0 \\
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+B2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+C3 & 0 & 0 & 0 & 0 & 0 & 0 \\
+D4 & 0 & 0 & 0 & 0 & 0 & 0 \\
+E5 & 0 & 0 & 0 & 0 & 0 & 0 \\
+F6 & 0 & 0 & 0 & 0 & 0 & 0 \\
 \end{tabular}
 \end{center}
 \newpage
@@ -63,60 +93,156 @@ N3 & 0 & 0 & 0 \\
 \section*{Cálculo de D(1)}
 \subsection*{D(1)}
 \begin{center}
-\begin{tabular}{c|ccc}
- & N1 & N2 & N3 \\ \hline
-N1 & 0 & 4 & 10 \\
-N2 & $\infty$ & 0 & 5 \\
-N3 & $\infty$ & $\infty$ & 0 \\
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & 700 & 200 & $\infty$ & $\infty$ & $\infty$ \\
+B2 & 700 & 0 & 300 & 200 & $\infty$ & 400 \\
+C3 & 200 & 300 & 0 & 700 & 600 & $\infty$ \\
+D4 & $\infty$ & 200 & 700 & 0 & 300 & 100 \\
+E5 & $\infty$ & $\infty$ & 600 & 300 & 0 & 500 \\
+F6 & $\infty$ & 400 & $\infty$ & 100 & 500 & 0 \\
 \end{tabular}
 \end{center}
 \subsection*{P(1)}
 \begin{center}
-\begin{tabular}{c|ccc}
- & N1 & N2 & N3 \\ \hline
-N1 & 0 & 0 & 0 \\
-N2 & 0 & 0 & 0 \\
-N3 & 0 & 0 & 0 \\
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+B2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+C3 & 0 & 0 & 0 & 0 & 0 & 0 \\
+D4 & 0 & 0 & 0 & 0 & 0 & 0 \\
+E5 & 0 & 0 & 0 & 0 & 0 & 0 \\
+F6 & 0 & 0 & 0 & 0 & 0 & 0 \\
 \end{tabular}
 \end{center}
 \newpage
 \section*{Cálculo de D(2)}
 \subsection*{D(2)}
 \begin{center}
-\begin{tabular}{c|ccc}
- & N1 & N2 & N3 \\ \hline
-N1 & 0 & 4 & \textcolor{orange}{9} \\
-N2 & $\infty$ & 0 & 5 \\
-N3 & $\infty$ & $\infty$ & 0 \\
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & 700 & 200 & \textcolor{orange}{900} & $\infty$ & \textcolor{orange}{1100} \\
+B2 & 700 & 0 & 300 & 200 & $\infty$ & 400 \\
+C3 & 200 & 300 & 0 & \textcolor{orange}{500} & 600 & \textcolor{orange}{700} \\
+D4 & \textcolor{orange}{900} & 200 & \textcolor{orange}{500} & 0 & 300 & 100 \\
+E5 & $\infty$ & $\infty$ & 600 & 300 & 0 & 500 \\
+F6 & \textcolor{orange}{1100} & 400 & \textcolor{orange}{700} & 100 & 500 & 0 \\
 \end{tabular}
 \end{center}
 \subsection*{P(2)}
 \begin{center}
-\begin{tabular}{c|ccc}
- & N1 & N2 & N3 \\ \hline
-N1 & 0 & 0 & N2 \\
-N2 & 0 & 0 & 0 \\
-N3 & 0 & 0 & 0 \\
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & 0 & 0 & B2 & 0 & B2 \\
+B2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+C3 & 0 & 0 & 0 & B2 & 0 & B2 \\
+D4 & B2 & 0 & B2 & 0 & 0 & 0 \\
+E5 & 0 & 0 & 0 & 0 & 0 & 0 \\
+F6 & B2 & 0 & B2 & 0 & 0 & 0 \\
 \end{tabular}
 \end{center}
 \newpage
 \section*{Cálculo de D(3)}
 \subsection*{D(3)}
 \begin{center}
-\begin{tabular}{c|ccc}
- & N1 & N2 & N3 \\ \hline
-N1 & 0 & 4 & 9 \\
-N2 & $\infty$ & 0 & 5 \\
-N3 & $\infty$ & $\infty$ & 0 \\
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & \textcolor{orange}{500} & 200 & \textcolor{orange}{700} & \textcolor{orange}{800} & \textcolor{orange}{900} \\
+B2 & \textcolor{orange}{500} & 0 & 300 & 200 & \textcolor{orange}{900} & 400 \\
+C3 & 200 & 300 & 0 & 500 & 600 & 700 \\
+D4 & \textcolor{orange}{700} & 200 & 500 & 0 & 300 & 100 \\
+E5 & \textcolor{orange}{800} & \textcolor{orange}{900} & 600 & 300 & 0 & 500 \\
+F6 & \textcolor{orange}{900} & 400 & 700 & 100 & 500 & 0 \\
 \end{tabular}
 \end{center}
 \subsection*{P(3)}
 \begin{center}
-\begin{tabular}{c|ccc}
- & N1 & N2 & N3 \\ \hline
-N1 & 0 & 0 & N2 \\
-N2 & 0 & 0 & 0 \\
-N3 & 0 & 0 & 0 \\
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & C3 & 0 & C3 & C3 & C3 \\
+B2 & C3 & 0 & 0 & 0 & C3 & 0 \\
+C3 & 0 & 0 & 0 & B2 & 0 & B2 \\
+D4 & C3 & 0 & B2 & 0 & 0 & 0 \\
+E5 & C3 & C3 & 0 & 0 & 0 & 0 \\
+F6 & C3 & 0 & B2 & 0 & 0 & 0 \\
+\end{tabular}
+\end{center}
+\newpage
+\section*{Cálculo de D(4)}
+\subsection*{D(4)}
+\begin{center}
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & 500 & 200 & 700 & 800 & \textcolor{orange}{800} \\
+B2 & 500 & 0 & 300 & 200 & \textcolor{orange}{500} & \textcolor{orange}{300} \\
+C3 & 200 & 300 & 0 & 500 & 600 & \textcolor{orange}{600} \\
+D4 & 700 & 200 & 500 & 0 & 300 & 100 \\
+E5 & 800 & \textcolor{orange}{500} & 600 & 300 & 0 & \textcolor{orange}{400} \\
+F6 & \textcolor{orange}{800} & \textcolor{orange}{300} & \textcolor{orange}{600} & 100 & \textcolor{orange}{400} & 0 \\
+\end{tabular}
+\end{center}
+\subsection*{P(4)}
+\begin{center}
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & C3 & 0 & C3 & C3 & D4 \\
+B2 & C3 & 0 & 0 & 0 & D4 & D4 \\
+C3 & 0 & 0 & 0 & B2 & 0 & D4 \\
+D4 & C3 & 0 & B2 & 0 & 0 & 0 \\
+E5 & C3 & D4 & 0 & 0 & 0 & D4 \\
+F6 & D4 & D4 & D4 & 0 & D4 & 0 \\
+\end{tabular}
+\end{center}
+\newpage
+\section*{Cálculo de D(5)}
+\subsection*{D(5)}
+\begin{center}
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & 500 & 200 & 700 & 800 & 800 \\
+B2 & 500 & 0 & 300 & 200 & 500 & 300 \\
+C3 & 200 & 300 & 0 & 500 & 600 & 600 \\
+D4 & 700 & 200 & 500 & 0 & 300 & 100 \\
+E5 & 800 & 500 & 600 & 300 & 0 & 400 \\
+F6 & 800 & 300 & 600 & 100 & 400 & 0 \\
+\end{tabular}
+\end{center}
+\subsection*{P(5)}
+\begin{center}
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & C3 & 0 & C3 & C3 & D4 \\
+B2 & C3 & 0 & 0 & 0 & D4 & D4 \\
+C3 & 0 & 0 & 0 & B2 & 0 & D4 \\
+D4 & C3 & 0 & B2 & 0 & 0 & 0 \\
+E5 & C3 & D4 & 0 & 0 & 0 & D4 \\
+F6 & D4 & D4 & D4 & 0 & D4 & 0 \\
+\end{tabular}
+\end{center}
+\newpage
+\section*{Cálculo de D(6)}
+\subsection*{D(6)}
+\begin{center}
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & 500 & 200 & 700 & 800 & 800 \\
+B2 & 500 & 0 & 300 & 200 & 500 & 300 \\
+C3 & 200 & 300 & 0 & 500 & 600 & 600 \\
+D4 & 700 & 200 & 500 & 0 & 300 & 100 \\
+E5 & 800 & 500 & 600 & 300 & 0 & 400 \\
+F6 & 800 & 300 & 600 & 100 & 400 & 0 \\
+\end{tabular}
+\end{center}
+\subsection*{P(6)}
+\begin{center}
+\begin{tabular}{c|cccccc}
+ & A1 & B2 & C3 & D4 & E5 & F6 \\ \hline
+A1 & 0 & C3 & 0 & C3 & C3 & D4 \\
+B2 & C3 & 0 & 0 & 0 & D4 & D4 \\
+C3 & 0 & 0 & 0 & B2 & 0 & D4 \\
+D4 & C3 & 0 & B2 & 0 & 0 & 0 \\
+E5 & C3 & D4 & 0 & 0 & 0 & D4 \\
+F6 & D4 & D4 & D4 & 0 & D4 & 0 \\
 \end{tabular}
 \end{center}
 \newpage
@@ -125,12 +251,36 @@ N3 & 0 & 0 & 0 \\
 \hline
 Origen & Destino & Distancia & Ruta \\\hline
 \endhead
-N1 & N2 & 4 & N1 -- N2 \\
-N1 & N3 & 9 & N1 -- N2 -- N3 \\
-N2 & N1 & $\infty$ & (no existe ruta) \\
-N2 & N3 & 5 & N2 -- N3 \\
-N3 & N1 & $\infty$ & (no existe ruta) \\
-N3 & N2 & $\infty$ & (no existe ruta) \\
+A1 & B2 & 500 & A1 -- C3 -- B2 \\
+A1 & C3 & 200 & A1 -- C3 \\
+A1 & D4 & 700 & A1 -- C3 -- D4 \\
+A1 & E5 & 800 & A1 -- C3 -- E5 \\
+A1 & F6 & 800 & A1 -- C3 -- F6 \\
+B2 & A1 & 500 & B2 -- C3 -- A1 \\
+B2 & C3 & 300 & B2 -- C3 \\
+B2 & D4 & 200 & B2 -- D4 \\
+B2 & E5 & 500 & B2 -- D4 -- E5 \\
+B2 & F6 & 300 & B2 -- D4 -- F6 \\
+C3 & A1 & 200 & C3 -- A1 \\
+C3 & B2 & 300 & C3 -- B2 \\
+C3 & D4 & 500 & C3 -- B2 -- D4 \\
+C3 & E5 & 600 & C3 -- E5 \\
+C3 & F6 & 600 & C3 -- B2 -- F6 \\
+D4 & A1 & 700 & D4 -- B2 -- A1 \\
+D4 & B2 & 200 & D4 -- B2 \\
+D4 & C3 & 500 & D4 -- B2 -- C3 \\
+D4 & E5 & 300 & D4 -- E5 \\
+D4 & F6 & 100 & D4 -- F6 \\
+E5 & A1 & 800 & E5 -- C3 -- A1 \\
+E5 & B2 & 500 & E5 -- D4 -- B2 \\
+E5 & C3 & 600 & E5 -- C3 \\
+E5 & D4 & 300 & E5 -- D4 \\
+E5 & F6 & 400 & E5 -- D4 -- F6 \\
+F6 & A1 & 800 & F6 -- D4 -- A1 \\
+F6 & B2 & 300 & F6 -- D4 -- B2 \\
+F6 & C3 & 600 & F6 -- D4 -- C3 \\
+F6 & D4 & 100 & F6 -- D4 \\
+F6 & E5 & 400 & F6 -- D4 -- E5 \\
 \hline
 \end{longtable}
 \renewcommand{\refname}{Referencias}

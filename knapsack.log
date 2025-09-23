@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.8)  18 SEP 2025 20:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.8)  19 SEP 2025 12:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -307,14 +307,14 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.54 11\,x_
-           {\text{Botella de agua}} + 7\,x_{\text{Medias}} + 12\,x_{\text{Pa...
+l.54 10\,x_
+           {\text{A}} + 5\,x_{\text{B}} + 13\,x_{\text{C}} +  \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Undefined control sequence.
-l.54 11\,x_{\text
-                 {Botella de agua}} + 7\,x_{\text{Medias}} + 12\,x_{\text{Pa...
+l.54 10\,x_{\text
+                 {A}} + 5\,x_{\text{B}} + 13\,x_{\text{C}} +  \\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -322,8 +322,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.54 11\,x_{\text{Botella de agua}} + 7\,x_{\text
-                                                 {Medias}} + 12\,x_{\text{Pa...
+l.54 10\,x_{\text{A}} + 5\,x_{\text
+                                   {B}} + 13\,x_{\text{C}} +  \\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -331,8 +331,107 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.54 ...ua}} + 7\,x_{\text{Medias}} + 12\,x_{\text
-                                                  {Paquete de galletas}}
+l.54 ...\text{A}} + 5\,x_{\text{B}} + 13\,x_{\text
+                                                  {C}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+<recently read> &
+                 
+l.55 &
+      \quad 7\,x_{\text{D}} + 1\,x_{\text{E}} + 30\,x_{\text{F}} +  \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.55 &\quad 7\,x_{\text
+                       {D}} + 1\,x_{\text{E}} + 30\,x_{\text{F}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.55 &\quad 7\,x_{\text{D}} + 1\,x_{\text
+                                         {E}} + 30\,x_{\text{F}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.55 ...\text{D}} + 1\,x_{\text{E}} + 30\,x_{\text
+                                                  {F}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+<recently read> &
+                 
+l.56 &
+      \quad 3\,x_{\text{G}} + 2\,x_{\text{H}} + 8\,x_{\text{I}} +  \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.56 &\quad 3\,x_{\text
+                       {G}} + 2\,x_{\text{H}} + 8\,x_{\text{I}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.56 &\quad 3\,x_{\text{G}} + 2\,x_{\text
+                                         {H}} + 8\,x_{\text{I}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.56 ...{\text{G}} + 2\,x_{\text{H}} + 8\,x_{\text
+                                                  {I}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+<recently read> &
+                 
+l.57 &
+      \quad 14\,x_{\text{J}}
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.57 &\quad 14\,x_{\text
+                        {J}}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -346,7 +445,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.55 \end{align*}
+l.58 \end{align*}
                  
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -355,7 +454,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.55 \end{align*}
+l.58 \end{align*}
                  
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -370,7 +469,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.58 \begin{align*}
+l.61 \begin{align*}
                    
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -379,14 +478,14 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.60 4\,x_
-          {\text{Botella de agua}} + 3\,x_{\text{Medias}} + 5\,x_{\text{Paqu...
+l.63 10\,x_
+           {\text{A}} + 3\,x_{\text{B}} + 6\,x_{\text{C}} +  \\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Undefined control sequence.
-l.60 4\,x_{\text
-                {Botella de agua}} + 3\,x_{\text{Medias}} + 5\,x_{\text{Paqu...
+l.63 10\,x_{\text
+                 {A}} + 3\,x_{\text{B}} + 6\,x_{\text{C}} +  \\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -394,8 +493,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.60 4\,x_{\text{Botella de agua}} + 3\,x_{\text
-                                                {Medias}} + 5\,x_{\text{Paqu...
+l.63 10\,x_{\text{A}} + 3\,x_{\text
+                                   {B}} + 6\,x_{\text{C}} +  \\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -403,8 +502,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.60 ...gua}} + 3\,x_{\text{Medias}} + 5\,x_{\text
-                                                  {Paquete de galletas}} &\l...
+l.63 ...{\text{A}} + 3\,x_{\text{B}} + 6\,x_{\text
+                                                  {C}} +  \\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -412,8 +511,107 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Misplaced alignment tab character &.
-l.60 ...as}} + 5\,x_{\text{Paquete de galletas}} &
-                                                  \leq 10
+<recently read> &
+                 
+l.64 &
+      \quad 2\,x_{\text{D}} + 1\,x_{\text{E}} + 20\,x_{\text{F}} +  \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.64 &\quad 2\,x_{\text
+                       {D}} + 1\,x_{\text{E}} + 20\,x_{\text{F}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.64 &\quad 2\,x_{\text{D}} + 1\,x_{\text
+                                         {E}} + 20\,x_{\text{F}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.64 ...\text{D}} + 1\,x_{\text{E}} + 20\,x_{\text
+                                                  {F}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+<recently read> &
+                 
+l.65 &
+      \quad 3\,x_{\text{G}} + 7\,x_{\text{H}} + 5\,x_{\text{I}} +  \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.65 &\quad 3\,x_{\text
+                       {G}} + 7\,x_{\text{H}} + 5\,x_{\text{I}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.65 &\quad 3\,x_{\text{G}} + 7\,x_{\text
+                                         {H}} + 5\,x_{\text{I}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.65 ...{\text{G}} + 7\,x_{\text{H}} + 5\,x_{\text
+                                                  {I}} +  \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+<recently read> &
+                 
+l.66 &
+      \quad 9\,x_{\text{J}} &\leq 20
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.66 &\quad 9\,x_{\text
+                       {J}} &\leq 20
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+l.66 &\quad 9\,x_{\text{J}} &
+                             \leq 20
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
 simple: Just type `I\&' now. But if some right brace
@@ -428,7 +626,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.61 \end{align*}
+l.67 \end{align*}
                  
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -437,7 +635,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.61 \end{align*}
+l.67 \end{align*}
                  
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -452,7 +650,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.64 \begin{align*}
+l.70 \begin{align*}
                    
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -461,14 +659,14 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.65 x_
-       {\text{Botella de agua}} &\in \mathbb{Z}_{\geq 0}\\
+l.71 x_
+       {\text{A}} &\in \mathbb{Z}_{\geq 0}\\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Undefined control sequence.
-l.65 x_{\text
-             {Botella de agua}} &\in \mathbb{Z}_{\geq 0}\\
+l.71 x_{\text
+             {A}} &\in \mathbb{Z}_{\geq 0}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -476,8 +674,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Misplaced alignment tab character &.
-l.65 x_{\text{Botella de agua}} &
-                                 \in \mathbb{Z}_{\geq 0}\\
+l.71 x_{\text{A}} &
+                   \in \mathbb{Z}_{\geq 0}\\
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
 simple: Just type `I\&' now. But if some right brace
@@ -486,8 +684,8 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Undefined control sequence.
-l.65 x_{\text{Botella de agua}} &\in \mathbb
-                                            {Z}_{\geq 0}\\
+l.71 x_{\text{A}} &\in \mathbb
+                              {Z}_{\geq 0}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -495,8 +693,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.66 x_{\text
-             {Medias}} &\in \mathbb{Z}_{\geq 0}\\
+l.72 0 \leq x_{\text
+                    {B}} &\leq 3,\; x_{\text{B}} \in \mathbb{Z}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -504,8 +702,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Misplaced alignment tab character &.
-l.66 x_{\text{Medias}} &
-                        \in \mathbb{Z}_{\geq 0}\\
+l.72 0 \leq x_{\text{B}} &
+                          \leq 3,\; x_{\text{B}} \in \mathbb{Z}\\
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
 simple: Just type `I\&' now. But if some right brace
@@ -514,8 +712,8 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Undefined control sequence.
-l.66 x_{\text{Medias}} &\in \mathbb
-                                   {Z}_{\geq 0}\\
+l.72 0 \leq x_{\text{B}} &\leq 3,\; x_{\text
+                                            {B}} \in \mathbb{Z}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -523,8 +721,17 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.67 x_{\text
-             {Paquete de galletas}} &\in \mathbb{Z}_{\geq 0}\\
+l.72 ...xt{B}} &\leq 3,\; x_{\text{B}} \in \mathbb
+                                                  {Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.73 0 \leq x_{\text
+                    {C}} &\leq 1,\; x_{\text{C}} \in \mathbb{Z}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -532,8 +739,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Misplaced alignment tab character &.
-l.67 x_{\text{Paquete de galletas}} &
-                                     \in \mathbb{Z}_{\geq 0}\\
+l.73 0 \leq x_{\text{C}} &
+                          \leq 1,\; x_{\text{C}} \in \mathbb{Z}\\
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
 simple: Just type `I\&' now. But if some right brace
@@ -542,8 +749,267 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Undefined control sequence.
-l.67 x_{\text{Paquete de galletas}} &\in \mathbb
-                                                {Z}_{\geq 0}\\
+l.73 0 \leq x_{\text{C}} &\leq 1,\; x_{\text
+                                            {C}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.73 ...xt{C}} &\leq 1,\; x_{\text{C}} \in \mathbb
+                                                  {Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.74 0 \leq x_{\text
+                    {D}} &\leq 2,\; x_{\text{D}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+l.74 0 \leq x_{\text{D}} &
+                          \leq 2,\; x_{\text{D}} \in \mathbb{Z}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.74 0 \leq x_{\text{D}} &\leq 2,\; x_{\text
+                                            {D}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.74 ...xt{D}} &\leq 2,\; x_{\text{D}} \in \mathbb
+                                                  {Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.75 0 \leq x_{\text
+                    {E}} &\leq 1,\; x_{\text{E}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+l.75 0 \leq x_{\text{E}} &
+                          \leq 1,\; x_{\text{E}} \in \mathbb{Z}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.75 0 \leq x_{\text{E}} &\leq 1,\; x_{\text
+                                            {E}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.75 ...xt{E}} &\leq 1,\; x_{\text{E}} \in \mathbb
+                                                  {Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.76 0 \leq x_{\text
+                    {F}} &\leq 4,\; x_{\text{F}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+l.76 0 \leq x_{\text{F}} &
+                          \leq 4,\; x_{\text{F}} \in \mathbb{Z}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.76 0 \leq x_{\text{F}} &\leq 4,\; x_{\text
+                                            {F}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.76 ...xt{F}} &\leq 4,\; x_{\text{F}} \in \mathbb
+                                                  {Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.77 0 \leq x_{\text
+                    {G}} &\leq 8,\; x_{\text{G}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+l.77 0 \leq x_{\text{G}} &
+                          \leq 8,\; x_{\text{G}} \in \mathbb{Z}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.77 0 \leq x_{\text{G}} &\leq 8,\; x_{\text
+                                            {G}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.77 ...xt{G}} &\leq 8,\; x_{\text{G}} \in \mathbb
+                                                  {Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.78 0 \leq x_{\text
+                    {H}} &\leq 5,\; x_{\text{H}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+l.78 0 \leq x_{\text{H}} &
+                          \leq 5,\; x_{\text{H}} \in \mathbb{Z}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.78 0 \leq x_{\text{H}} &\leq 5,\; x_{\text
+                                            {H}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.78 ...xt{H}} &\leq 5,\; x_{\text{H}} \in \mathbb
+                                                  {Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.79 x_{\text
+             {I}} &\in \mathbb{Z}_{\geq 0}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+l.79 x_{\text{I}} &
+                   \in \mathbb{Z}_{\geq 0}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.79 x_{\text{I}} &\in \mathbb
+                              {Z}_{\geq 0}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.80 0 \leq x_{\text
+                    {J}} &\leq 3,\; x_{\text{J}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Misplaced alignment tab character &.
+l.80 0 \leq x_{\text{J}} &
+                          \leq 3,\; x_{\text{J}} \in \mathbb{Z}\\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Undefined control sequence.
+l.80 0 \leq x_{\text{J}} &\leq 3,\; x_{\text
+                                            {J}} \in \mathbb{Z}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.80 ...xt{J}} &\leq 3,\; x_{\text{J}} \in \mathbb
+                                                  {Z}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -557,7 +1023,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.68 \end{align*}
+l.81 \end{align*}
                  
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -566,7 +1032,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.68 \end{align*}
+l.81 \end{align*}
                  
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -575,12 +1041,12 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 51--69
+Underfull \hbox (badness 10000) in paragraph at lines 51--82
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 70--71
+Underfull \hbox (badness 10000) in paragraph at lines 83--84
 
  []
 
@@ -592,22 +1058,43 @@ Underfull \hbox (badness 10000) in paragraph at lines 70--71
 ] [6
 
 
+] [7
+
+
+] [8
+
+
+] [9
+
+
+] [10
+
+
+] [11
+
+
+] [12
+
+
+] [13
+
+
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 132--133
+Underfull \hbox (badness 10000) in paragraph at lines 385--386
 
  []
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.134 \item x_
-              {\text{Botella de agua}} = \textcolor{green}{1}, x_{\text{Medi...
+l.387 \item x_
+              {\text{A}} = 0, x_{\text{B}} = \textcolor{green}{3}, x_{\text{...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Undefined control sequence.
-l.134 \item x_{\text
-                    {Botella de agua}} = \textcolor{green}{1}, x_{\text{Medi...
+l.387 \item x_{\text
+                    {A}} = 0, x_{\text{B}} = \textcolor{green}{3}, x_{\text{...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -615,8 +1102,8 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.134 ...e agua}} = \textcolor{green}{1}, x_{\text
-                                                  {Medias}} = \textcolor{gre...
+l.387 \item x_{\text{A}} = 0, x_{\text
+                                      {B}} = \textcolor{green}{3}, x_{\text{...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -624,8 +1111,200 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.134 ...Medias}} = \textcolor{green}{2}, x_{\text
-                                                  {Paquete de galletas}} = 0\\
+l.387 ...text{B}} = \textcolor{green}{3}, x_{\text
+                                                  {C}} = \textcolor{green}{1...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.387 ...text{C}} = \textcolor{green}{1}, x_{\text
+                                                  {D}} = \textcolor{green}{2...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.387 ...text{D}} = \textcolor{green}{2}, x_{\text
+                                                  {E}} = \textcolor{green}{1...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.387 ...text{E}} = \textcolor{green}{1}, x_{\text
+                                                  {F}} = 0, x_{\text{G}} = 0...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.387 ...lor{green}{1}, x_{\text{F}} = 0, x_{\text
+                                                  {G}} = 0, x_{\text{H}} = 0...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.387 ...\text{F}} = 0, x_{\text{G}} = 0, x_{\text
+                                                  {H}} = 0, x_{\text{I}} = 0...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.387 ...\text{G}} = 0, x_{\text{H}} = 0, x_{\text
+                                                  {I}} = 0, x_{\text{J}} = 0\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.387 ...\text{H}} = 0, x_{\text{I}} = 0, x_{\text
+                                                  {J}} = 0\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Command \item invalid in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.388 \item
+            x_{\text{A}} = 0, x_{\text{B}} = 0, x_{\text{C}} = \textcolor{gr...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.388 \item x
+             _{\text{A}} = 0, x_{\text{B}} = 0, x_{\text{C}} = \textcolor{gr...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.388 \item x
+             _{\text{A}} = 0, x_{\text{B}} = 0, x_{\text{C}} = \textcolor{gr...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.388 \item x_{\text
+                    {A}} = 0, x_{\text{B}} = 0, x_{\text{C}} = \textcolor{gr...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.388 \item x_{\text{A}} = 0, x_{\text
+                                      {B}} = 0, x_{\text{C}} = \textcolor{gr...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.388 ...\text{A}} = 0, x_{\text{B}} = 0, x_{\text
+                                                  {C}} = \textcolor{green}{1...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.388 ...text{C}} = \textcolor{green}{1}, x_{\text
+                                                  {D}} = \textcolor{green}{2...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.388 ...text{D}} = \textcolor{green}{2}, x_{\text
+                                                  {E}} = 0, x_{\text{F}} = 0...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.388 ...lor{green}{2}, x_{\text{E}} = 0, x_{\text
+                                                  {F}} = 0, x_{\text{G}} = 0...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.388 ...\text{E}} = 0, x_{\text{F}} = 0, x_{\text
+                                                  {G}} = 0, x_{\text{H}} = 0...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.388 ...\text{F}} = 0, x_{\text{G}} = 0, x_{\text
+                                                  {H}} = 0, x_{\text{I}} = \...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.388 ...\text{G}} = 0, x_{\text{H}} = 0, x_{\text
+                                                  {I}} = \textcolor{green}{2...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.388 ...text{I}} = \textcolor{green}{2}, x_{\text
+                                                  {J}} = 0\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -639,7 +1318,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.135 \end{itemize}
+l.389 \end{itemize}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -651,7 +1330,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.135 \end{itemize}
+l.389 \end{itemize}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -663,7 +1342,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.135 \end{itemize}
+l.389 \end{itemize}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -671,7 +1350,7 @@ If that doesn't work, type  X <return>  to quit.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.135 \end{itemize}
+l.389 \end{itemize}
                    
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -680,19 +1359,19 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 134--137
+Underfull \hbox (badness 10000) in paragraph at lines 387--391
 $
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 134--137
+Underfull \hbox (badness 10000) in paragraph at lines 387--391
 
  []
 
 ! Undefined control sequence.
 <recently read> \url 
                      
-l.138 ...Wikipedia, la Enciclopedia Libre. \\ \url
+l.392 ...Wikipedia, la Enciclopedia Libre. \\ \url
                                                   {https://es.wikipedia.org/...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -703,13 +1382,13 @@ and I'll forget about whatever was undefined.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.138 ...l{https://es.wikipedia.org/wiki/Problema_
+l.392 ...l{https://es.wikipedia.org/wiki/Problema_
                                                   de_la_mochila}
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Extra }, or forgotten $.
-l.138 ...ikipedia.org/wiki/Problema_de_la_mochila}
+l.392 ...ikipedia.org/wiki/Problema_de_la_mochila}
                                                   
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -724,21 +1403,21 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.139 \end{thebibliography}
+l.393 \end{thebibliography}
                            
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-LaTeX Warning: Empty `thebibliography' environment on input line 139.
+LaTeX Warning: Empty `thebibliography' environment on input line 393.
 
 
-LaTeX Warning: Empty `thebibliography' environment on input line 139.
+LaTeX Warning: Empty `thebibliography' environment on input line 393.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.139 \end{thebibliography}
+l.393 \end{thebibliography}
                            
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -749,7 +1428,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.139 \end{thebibliography}
+l.393 \end{thebibliography}
                            
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -757,7 +1436,7 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[7
+[14
 
 ] (./knapsack.aux)
  ***********
@@ -766,10 +1445,10 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 2803 strings out of 476182
- 44564 string characters out of 5795596
- 1932975 words of memory out of 5000000
- 24794 multiletter control sequences out of 15000+600000
+ 2811 strings out of 476182
+ 44616 string characters out of 5795596
+ 1968975 words of memory out of 5000000
+ 24802 multiletter control sequences out of 15000+600000
  563266 words of font info for 53 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  66i,5n,70p,461b,222s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -781,10 +1460,10 @@ ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on knapsack.pdf (7 pages, 180353 bytes).
+Output written on knapsack.pdf (14 pages, 196448 bytes).
 PDF statistics:
- 71 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 93 PDF objects out of 1000 (max. 8388607)
+ 59 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

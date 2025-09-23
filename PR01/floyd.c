@@ -487,7 +487,11 @@ void write_tex(const char *fname, int n, int ***tableD, int ***tableP, char name
 
     // Portada
     fprintf(f, "\\begin{center}\n{\\LARGE \\textbf{Proyecto 1: Rutas Óptimas (Algoritmo de Floyd)}}\\\\[2cm]\n");
+    fprintf(f, "{\\large Instituto Tecnológico de Costa Rica\\\\[1cm]\n");
+    fprintf(f, "\\includegraphics[width=0.4\\textwidth]{TEC.png}\\\\[2cm]\n");
     fprintf(f, "{\\large Investigación de Operaciones\\\\[2cm]\n");
+    fprintf(f, "{\\large Profesor: }\\\\[1cm]\n");
+    fprintf(f, "{\\large Francisco Jose Torres Roja}\\\\[2cm]\n");
     fprintf(f, "{\\large Integrantes: }\\\\[1cm]\n");
     fprintf(f, "{\\large Jose Pablo Fernandez Jimenez - 2023117752}\\\\[1cm]\n");
     fprintf(f, "{\\large Diego Durán Rodríguez - 2022437509}\\\\[2cm]\n");

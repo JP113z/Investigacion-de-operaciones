@@ -45,93 +45,347 @@ El procedimiento general es el siguiente:
 
 \bigskip
 \section*{Problema}
-Capacidad de la mochila: $W = 10$\\
-Número de objetos: $n = 3$\\
+Capacidad de la mochila: $W = 20$\\
+Número de objetos: $n = 10$\\
 
 \textbf{Formulación matemática:}\\
 \begin{align*}
 \textbf{Maximizar Z = }\\
-11\,x_{\text{Botella de agua}} + 7\,x_{\text{Medias}} + 12\,x_{\text{Paquete de galletas}}
+10\,x_{\text{A}} + 5\,x_{\text{B}} + 13\,x_{\text{C}} +  \\
+&\quad 7\,x_{\text{D}} + 1\,x_{\text{E}} + 30\,x_{\text{F}} +  \\
+&\quad 3\,x_{\text{G}} + 2\,x_{\text{H}} + 8\,x_{\text{I}} +  \\
+&\quad 14\,x_{\text{J}}
 \end{align*}
 \bigskip\bigskip
 \textbf{}\\
 \begin{align*}
 \textbf{Sujeto a:}\\
-4\,x_{\text{Botella de agua}} + 3\,x_{\text{Medias}} + 5\,x_{\text{Paquete de galletas}} &\leq 10
+10\,x_{\text{A}} + 3\,x_{\text{B}} + 6\,x_{\text{C}} +  \\
+&\quad 2\,x_{\text{D}} + 1\,x_{\text{E}} + 20\,x_{\text{F}} +  \\
+&\quad 3\,x_{\text{G}} + 7\,x_{\text{H}} + 5\,x_{\text{I}} +  \\
+&\quad 9\,x_{\text{J}} &\leq 20
 \end{align*}
 \bigskip\bigskip
 \textbf{}\\
 \begin{align*}
-x_{\text{Botella de agua}} &\in \mathbb{Z}_{\geq 0}\\
-x_{\text{Medias}} &\in \mathbb{Z}_{\geq 0}\\
-x_{\text{Paquete de galletas}} &\in \mathbb{Z}_{\geq 0}\\
+x_{\text{A}} &\in \mathbb{Z}_{\geq 0}\\
+0 \leq x_{\text{B}} &\leq 3,\; x_{\text{B}} \in \mathbb{Z}\\
+0 \leq x_{\text{C}} &\leq 1,\; x_{\text{C}} \in \mathbb{Z}\\
+0 \leq x_{\text{D}} &\leq 2,\; x_{\text{D}} \in \mathbb{Z}\\
+0 \leq x_{\text{E}} &\leq 1,\; x_{\text{E}} \in \mathbb{Z}\\
+0 \leq x_{\text{F}} &\leq 4,\; x_{\text{F}} \in \mathbb{Z}\\
+0 \leq x_{\text{G}} &\leq 8,\; x_{\text{G}} \in \mathbb{Z}\\
+0 \leq x_{\text{H}} &\leq 5,\; x_{\text{H}} \in \mathbb{Z}\\
+x_{\text{I}} &\in \mathbb{Z}_{\geq 0}\\
+0 \leq x_{\text{J}} &\leq 3,\; x_{\text{J}} \in \mathbb{Z}\\
 \end{align*}
 \section*{Tabla de trabajo}
 Color: {\color{green}verde} = se toma el objeto, {\color{red}rojo} = no se toma, {\color{yellow}amarillo} = empate.\\
 \begin{landscape}
-\subsection*{Objeto Botella de agua}
+\subsection*{Objeto A}
 \begin{longtable}{cc}
 \toprule
-Peso & Botella de agua \\
+Peso & A \\
 \midrule
 0 & \cellcolor{red!20}0~(k=0) \\
 1 & \cellcolor{red!20}0~(k=0) \\
 2 & \cellcolor{red!20}0~(k=0) \\
 3 & \cellcolor{red!20}0~(k=0) \\
-4 & \cellcolor{green!40}11~(k=1) \\
-5 & \cellcolor{green!40}11~(k=1) \\
-6 & \cellcolor{green!40}11~(k=1) \\
-7 & \cellcolor{green!40}11~(k=1) \\
-8 & \cellcolor{green!40}22~(k=2) \\
-9 & \cellcolor{green!40}22~(k=2) \\
-10 & \cellcolor{green!40}22~(k=2) \\
+4 & \cellcolor{red!20}0~(k=0) \\
+5 & \cellcolor{red!20}0~(k=0) \\
+6 & \cellcolor{red!20}0~(k=0) \\
+7 & \cellcolor{red!20}0~(k=0) \\
+8 & \cellcolor{red!20}0~(k=0) \\
+9 & \cellcolor{red!20}0~(k=0) \\
+10 & \cellcolor{green!40}10~(k=1) \\
+11 & \cellcolor{green!40}10~(k=1) \\
+12 & \cellcolor{green!40}10~(k=1) \\
+13 & \cellcolor{green!40}10~(k=1) \\
+14 & \cellcolor{green!40}10~(k=1) \\
+15 & \cellcolor{green!40}10~(k=1) \\
+16 & \cellcolor{green!40}10~(k=1) \\
+17 & \cellcolor{green!40}10~(k=1) \\
+18 & \cellcolor{green!40}10~(k=1) \\
+19 & \cellcolor{green!40}10~(k=1) \\
+20 & \cellcolor{green!40}20~(k=2) \\
 \bottomrule
 \end{longtable}
 \end{landscape}
 \begin{landscape}
-\subsection*{Objeto Medias}
+\subsection*{Objeto B}
 \begin{longtable}{ccc}
 \toprule
-Peso & Botella de agua & Medias \\
+Peso & A & B \\
 \midrule
 0 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
 1 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
 2 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
-3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}7~(k=1) \\
-4 & \cellcolor{green!40}11~(k=1) & \cellcolor{red!20}11~(k=0) \\
-5 & \cellcolor{green!40}11~(k=1) & \cellcolor{red!20}11~(k=0) \\
-6 & \cellcolor{green!40}11~(k=1) & \cellcolor{green!40}14~(k=2) \\
-7 & \cellcolor{green!40}11~(k=1) & \cellcolor{green!40}18~(k=1) \\
-8 & \cellcolor{green!40}22~(k=2) & \cellcolor{red!20}22~(k=0) \\
-9 & \cellcolor{green!40}22~(k=2) & \cellcolor{red!20}22~(k=0) \\
-10 & \cellcolor{green!40}22~(k=2) & \cellcolor{green!40}25~(k=2) \\
+3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) \\
+4 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) \\
+5 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) \\
+6 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) \\
+7 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) \\
+8 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) \\
+9 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}15~(k=3) \\
+10 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) \\
+11 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) \\
+12 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) \\
+13 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) \\
+14 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) \\
+15 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) \\
+16 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) \\
+17 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) \\
+18 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) \\
+19 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}25~(k=3) \\
+20 & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}25~(k=3) \\
 \bottomrule
 \end{longtable}
 \end{landscape}
 \begin{landscape}
-\subsection*{Objeto Paquete de galletas}
+\subsection*{Objeto C}
 \begin{longtable}{cccc}
 \toprule
-Peso & Botella de agua & Medias & Paquete de galletas \\
+Peso & A & B & C \\
 \midrule
 0 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
 1 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
 2 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
-3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{red!20}7~(k=0) \\
-4 & \cellcolor{green!40}11~(k=1) & \cellcolor{red!20}11~(k=0) & \cellcolor{red!20}11~(k=0) \\
-5 & \cellcolor{green!40}11~(k=1) & \cellcolor{red!20}11~(k=0) & \cellcolor{green!40}12~(k=1) \\
-6 & \cellcolor{green!40}11~(k=1) & \cellcolor{green!40}14~(k=2) & \cellcolor{red!20}14~(k=0) \\
-7 & \cellcolor{green!40}11~(k=1) & \cellcolor{green!40}18~(k=1) & \cellcolor{red!20}18~(k=0) \\
-8 & \cellcolor{green!40}22~(k=2) & \cellcolor{red!20}22~(k=0) & \cellcolor{red!20}22~(k=0) \\
-9 & \cellcolor{green!40}22~(k=2) & \cellcolor{red!20}22~(k=0) & \cellcolor{green!40}23~(k=1) \\
-10 & \cellcolor{green!40}22~(k=2) & \cellcolor{green!40}25~(k=2) & \cellcolor{red!20}25~(k=0) \\
+3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) \\
+4 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) \\
+5 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) \\
+6 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) \\
+7 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) \\
+8 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) \\
+9 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) \\
+10 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) \\
+11 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) \\
+12 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}23~(k=1) \\
+13 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) \\
+14 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) \\
+15 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}28~(k=1) \\
+16 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) \\
+17 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) \\
+18 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) \\
+19 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) \\
+20 & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) \\
+\bottomrule
+\end{longtable}
+\end{landscape}
+\begin{landscape}
+\subsection*{Objeto D}
+\begin{longtable}{ccccc}
+\toprule
+Peso & A & B & C & D \\
+\midrule
+0 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
+1 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
+2 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}7~(k=1) \\
+3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}7~(k=1) \\
+4 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) \\
+5 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) \\
+6 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}14~(k=2) \\
+7 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}19~(k=2) \\
+8 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}20~(k=1) \\
+9 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}20~(k=1) \\
+10 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) \\
+11 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) \\
+12 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}27~(k=2) \\
+13 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) \\
+14 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) \\
+15 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}32~(k=2) \\
+16 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) \\
+17 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) \\
+18 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) \\
+19 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) \\
+20 & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) \\
+\bottomrule
+\end{longtable}
+\end{landscape}
+\begin{landscape}
+\subsection*{Objeto E}
+\begin{longtable}{cccccc}
+\toprule
+Peso & A & B & C & D & E \\
+\midrule
+0 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
+1 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}1~(k=1) \\
+2 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{red!20}7~(k=0) \\
+3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{green!40}8~(k=1) \\
+4 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) & \cellcolor{red!20}14~(k=0) \\
+5 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) & \cellcolor{green!40}15~(k=1) \\
+6 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}14~(k=2) & \cellcolor{green!40}15~(k=1) \\
+7 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}19~(k=2) & \cellcolor{red!20}19~(k=0) \\
+8 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}20~(k=1) & \cellcolor{yellow!50}20~(k=0) \\
+9 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}20~(k=1) & \cellcolor{green!40}21~(k=1) \\
+10 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{red!20}27~(k=0) \\
+11 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{green!40}28~(k=1) \\
+12 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{green!40}28~(k=1) \\
+13 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{red!20}32~(k=0) \\
+14 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{green!40}33~(k=1) \\
+15 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{green!40}33~(k=1) \\
+16 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{red!20}37~(k=0) \\
+17 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{green!40}38~(k=1) \\
+18 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{green!40}38~(k=1) \\
+19 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) & \cellcolor{red!20}42~(k=0) \\
+20 & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) & \cellcolor{green!40}43~(k=1) \\
+\bottomrule
+\end{longtable}
+\end{landscape}
+\begin{landscape}
+\subsection*{Objeto F}
+\begin{longtable}{ccccccc}
+\toprule
+Peso & A & B & C & D & E & F \\
+\midrule
+0 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
+1 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}1~(k=1) & \cellcolor{red!20}1~(k=0) \\
+2 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) \\
+3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{green!40}8~(k=1) & \cellcolor{red!20}8~(k=0) \\
+4 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) \\
+5 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) & \cellcolor{green!40}15~(k=1) & \cellcolor{red!20}15~(k=0) \\
+6 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}14~(k=2) & \cellcolor{green!40}15~(k=1) & \cellcolor{red!20}15~(k=0) \\
+7 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}19~(k=2) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) \\
+8 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}20~(k=1) & \cellcolor{yellow!50}20~(k=0) & \cellcolor{red!20}20~(k=0) \\
+9 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}20~(k=1) & \cellcolor{green!40}21~(k=1) & \cellcolor{red!20}21~(k=0) \\
+10 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) \\
+11 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{red!20}28~(k=0) \\
+12 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{red!20}28~(k=0) \\
+13 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) \\
+14 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) \\
+15 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) \\
+16 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) \\
+17 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{green!40}38~(k=1) & \cellcolor{red!20}38~(k=0) \\
+18 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{green!40}38~(k=1) & \cellcolor{red!20}38~(k=0) \\
+19 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) \\
+20 & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) & \cellcolor{green!40}43~(k=1) & \cellcolor{red!20}43~(k=0) \\
+\bottomrule
+\end{longtable}
+\end{landscape}
+\begin{landscape}
+\subsection*{Objeto G}
+\begin{longtable}{cccccccc}
+\toprule
+Peso & A & B & C & D & E & F & G \\
+\midrule
+0 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
+1 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}1~(k=1) & \cellcolor{red!20}1~(k=0) & \cellcolor{red!20}1~(k=0) \\
+2 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) \\
+3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{green!40}8~(k=1) & \cellcolor{red!20}8~(k=0) & \cellcolor{red!20}8~(k=0) \\
+4 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) \\
+5 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) & \cellcolor{green!40}15~(k=1) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) \\
+6 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}14~(k=2) & \cellcolor{green!40}15~(k=1) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) \\
+7 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}19~(k=2) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) \\
+8 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}20~(k=1) & \cellcolor{yellow!50}20~(k=0) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) \\
+9 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}20~(k=1) & \cellcolor{green!40}21~(k=1) & \cellcolor{red!20}21~(k=0) & \cellcolor{red!20}21~(k=0) \\
+10 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) \\
+11 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) \\
+12 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) \\
+13 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) \\
+14 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) \\
+15 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) \\
+16 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) \\
+17 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{green!40}38~(k=1) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) \\
+18 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{green!40}38~(k=1) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) \\
+19 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) \\
+20 & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) & \cellcolor{green!40}43~(k=1) & \cellcolor{red!20}43~(k=0) & \cellcolor{red!20}43~(k=0) \\
+\bottomrule
+\end{longtable}
+\end{landscape}
+\begin{landscape}
+\subsection*{Objeto H}
+\begin{longtable}{ccccccccc}
+\toprule
+Peso & A & B & C & D & E & F & G & H \\
+\midrule
+0 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
+1 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}1~(k=1) & \cellcolor{red!20}1~(k=0) & \cellcolor{red!20}1~(k=0) & \cellcolor{red!20}1~(k=0) \\
+2 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) \\
+3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{green!40}8~(k=1) & \cellcolor{red!20}8~(k=0) & \cellcolor{red!20}8~(k=0) & \cellcolor{red!20}8~(k=0) \\
+4 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) \\
+5 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) & \cellcolor{green!40}15~(k=1) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) \\
+6 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}14~(k=2) & \cellcolor{green!40}15~(k=1) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) \\
+7 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}19~(k=2) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) \\
+8 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}20~(k=1) & \cellcolor{yellow!50}20~(k=0) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) \\
+9 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}20~(k=1) & \cellcolor{green!40}21~(k=1) & \cellcolor{red!20}21~(k=0) & \cellcolor{red!20}21~(k=0) & \cellcolor{red!20}21~(k=0) \\
+10 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) \\
+11 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) \\
+12 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) \\
+13 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) \\
+14 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) \\
+15 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) \\
+16 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) \\
+17 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{green!40}38~(k=1) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) \\
+18 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{green!40}38~(k=1) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) \\
+19 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) \\
+20 & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) & \cellcolor{green!40}43~(k=1) & \cellcolor{red!20}43~(k=0) & \cellcolor{red!20}43~(k=0) & \cellcolor{red!20}43~(k=0) \\
+\bottomrule
+\end{longtable}
+\end{landscape}
+\begin{landscape}
+\subsection*{Objeto I}
+\begin{longtable}{cccccccccc}
+\toprule
+Peso & A & B & C & D & E & F & G & H & I \\
+\midrule
+0 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
+1 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}1~(k=1) & \cellcolor{red!20}1~(k=0) & \cellcolor{red!20}1~(k=0) & \cellcolor{red!20}1~(k=0) & \cellcolor{red!20}1~(k=0) \\
+2 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) \\
+3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{green!40}8~(k=1) & \cellcolor{red!20}8~(k=0) & \cellcolor{red!20}8~(k=0) & \cellcolor{red!20}8~(k=0) & \cellcolor{red!20}8~(k=0) \\
+4 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) \\
+5 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) & \cellcolor{green!40}15~(k=1) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) \\
+6 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}14~(k=2) & \cellcolor{green!40}15~(k=1) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) \\
+7 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}19~(k=2) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) \\
+8 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}20~(k=1) & \cellcolor{yellow!50}20~(k=0) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) \\
+9 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}20~(k=1) & \cellcolor{green!40}21~(k=1) & \cellcolor{red!20}21~(k=0) & \cellcolor{red!20}21~(k=0) & \cellcolor{red!20}21~(k=0) & \cellcolor{green!40}22~(k=1) \\
+10 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) \\
+11 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) \\
+12 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) \\
+13 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) \\
+14 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) \\
+15 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) & \cellcolor{green!40}35~(k=1) \\
+16 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) \\
+17 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{green!40}38~(k=1) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) \\
+18 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{green!40}38~(k=1) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) & \cellcolor{green!40}40~(k=1) \\
+19 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) \\
+20 & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) & \cellcolor{green!40}43~(k=1) & \cellcolor{red!20}43~(k=0) & \cellcolor{red!20}43~(k=0) & \cellcolor{red!20}43~(k=0) & \cellcolor{yellow!50}43~(k=0) \\
+\bottomrule
+\end{longtable}
+\end{landscape}
+\begin{landscape}
+\subsection*{Objeto J}
+\begin{longtable}{ccccccccccc}
+\toprule
+Peso & A & B & C & D & E & F & G & H & I & J \\
+\midrule
+0 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) \\
+1 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}1~(k=1) & \cellcolor{red!20}1~(k=0) & \cellcolor{red!20}1~(k=0) & \cellcolor{red!20}1~(k=0) & \cellcolor{red!20}1~(k=0) & \cellcolor{red!20}1~(k=0) \\
+2 & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) & \cellcolor{red!20}7~(k=0) \\
+3 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}7~(k=1) & \cellcolor{green!40}8~(k=1) & \cellcolor{red!20}8~(k=0) & \cellcolor{red!20}8~(k=0) & \cellcolor{red!20}8~(k=0) & \cellcolor{red!20}8~(k=0) & \cellcolor{red!20}8~(k=0) \\
+4 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) & \cellcolor{red!20}14~(k=0) \\
+5 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}5~(k=1) & \cellcolor{red!20}5~(k=0) & \cellcolor{green!40}14~(k=2) & \cellcolor{green!40}15~(k=1) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) \\
+6 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}14~(k=2) & \cellcolor{green!40}15~(k=1) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) & \cellcolor{red!20}15~(k=0) \\
+7 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}19~(k=2) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) & \cellcolor{red!20}19~(k=0) \\
+8 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}10~(k=2) & \cellcolor{green!40}13~(k=1) & \cellcolor{green!40}20~(k=1) & \cellcolor{yellow!50}20~(k=0) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) & \cellcolor{red!20}20~(k=0) \\
+9 & \cellcolor{red!20}0~(k=0) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}20~(k=1) & \cellcolor{green!40}21~(k=1) & \cellcolor{red!20}21~(k=0) & \cellcolor{red!20}21~(k=0) & \cellcolor{red!20}21~(k=0) & \cellcolor{green!40}22~(k=1) & \cellcolor{red!20}22~(k=0) \\
+10 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) & \cellcolor{red!20}27~(k=0) \\
+11 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}18~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) \\
+12 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}15~(k=3) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}27~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) & \cellcolor{red!20}28~(k=0) \\
+13 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) & \cellcolor{red!20}32~(k=0) \\
+14 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}23~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) \\
+15 & \cellcolor{green!40}10~(k=1) & \cellcolor{yellow!50}15~(k=1) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}32~(k=2) & \cellcolor{green!40}33~(k=1) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) & \cellcolor{red!20}33~(k=0) & \cellcolor{green!40}35~(k=1) & \cellcolor{red!20}35~(k=0) \\
+16 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) & \cellcolor{red!20}37~(k=0) \\
+17 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{green!40}38~(k=1) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) \\
+18 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}37~(k=2) & \cellcolor{green!40}38~(k=1) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) & \cellcolor{red!20}38~(k=0) & \cellcolor{green!40}40~(k=1) & \cellcolor{red!20}40~(k=0) \\
+19 & \cellcolor{green!40}10~(k=1) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) & \cellcolor{red!20}42~(k=0) \\
+20 & \cellcolor{green!40}20~(k=2) & \cellcolor{green!40}25~(k=3) & \cellcolor{green!40}28~(k=1) & \cellcolor{green!40}42~(k=2) & \cellcolor{green!40}43~(k=1) & \cellcolor{red!20}43~(k=0) & \cellcolor{red!20}43~(k=0) & \cellcolor{red!20}43~(k=0) & \cellcolor{yellow!50}43~(k=0) & \cellcolor{red!20}43~(k=0) \\
 \bottomrule
 \end{longtable}
 \end{landscape}
 \section*{Soluciones óptimas}
-El valor óptimo es de $Z = 25$ con las siguientes cantidades de cada objeto:\\
+El valor óptimo es de $Z = 43$ con las siguientes cantidades de cada objeto:\\
 \begin{itemize}
-\item x_{\text{Botella de agua}} = \textcolor{green}{1}, x_{\text{Medias}} = \textcolor{green}{2}, x_{\text{Paquete de galletas}} = 0\\
+\item x_{\text{A}} = 0, x_{\text{B}} = \textcolor{green}{3}, x_{\text{C}} = \textcolor{green}{1}, x_{\text{D}} = \textcolor{green}{2}, x_{\text{E}} = \textcolor{green}{1}, x_{\text{F}} = 0, x_{\text{G}} = 0, x_{\text{H}} = 0, x_{\text{I}} = 0, x_{\text{J}} = 0\\
+\item x_{\text{A}} = 0, x_{\text{B}} = 0, x_{\text{C}} = \textcolor{green}{1}, x_{\text{D}} = \textcolor{green}{2}, x_{\text{E}} = 0, x_{\text{F}} = 0, x_{\text{G}} = 0, x_{\text{H}} = 0, x_{\text{I}} = \textcolor{green}{2}, x_{\text{J}} = 0\\
 \end{itemize}
 \renewcommand{\refname}{Referencias}
 \begin{thebibliography}{9}

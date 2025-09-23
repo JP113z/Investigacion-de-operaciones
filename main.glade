@@ -76,18 +76,18 @@
         </child>
         <child>
           <object class="GtkButton" id="button3">
-            <property name="label" translatable="yes">TBA</property>
+            <property name="label" translatable="yes">Reemplazo de Equipos</property>
             <property name="width-request">110</property>
             <property name="height-request">35</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
-            <property name="tooltip-text" translatable="yes">Esta funcion aun no esta implementada, !Vuelve mas tarde¡</property>
+            <property name="tooltip-text" translatable="yes">Consiste en decidir cuándo conviene mantener un equipo o reemplazarlo por uno nuevo, considerando el costo inicial, el plazo del proyecto, la vida útil, el precio de reventa, los costos de mantenimiento y, opcionalmente, la ganancia por uso. El objetivo es minimizar costos o maximizar beneficios a lo largo del tiempo.</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="margin-top">25</property>
             <property name="margin-bottom">25</property>
-            <signal name="clicked" handler="on_btn_clicked" swapped="no"/>
+            <signal name="clicked" handler="on_btn_clicked_equipos" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
