@@ -419,74 +419,108 @@ void on_save_button_clicked_equipos(GtkWidget *widget, gpointer data)
 }
 
 /* ---------- Algoritmo Bellman recursivo ---------- */
-void compute_bellman(int N, int C, int rev[], int man[], int gan[])
-{
-    for (int i = 0; i <= N; i++)
-    {
+// calcula el costo de cada segmento de t a x
+int segment_cost(int dur, int C, int rev[], int man[], int gan[]) {
+    long suma = 0;
+    for (int a = 0; a < dur; a++) {
+        suma += (long)man[a] - (long)gan[a];
+    }
+    // al final del tramo, vendo
+    suma += C - rev[dur-1];
+    return (int)suma;
+}
+// calcula el reemplazo óptimo y obtiene los G(t)
+void compute_bellman(int plazo, int vida, int C, int rev[], int man[], int gan[]) {
+    for (int i = 0; i <= plazo; i++) {
         G_arr[i] = INT_MAX / 4;
         R_arr[i] = -1;
         tie_arr[i] = FALSE;
         tie_list[i][0] = '\0';
     }
+    G_arr[plazo] = 0;
 
-    G_arr[N] = 0;
-    R_arr[N] = N;
-
-    for (int t = N - 1; t >= 0; t--)
-    {
-        int min_cost = INT_MAX;
-        int best_j = t + 1;
+    for (int t = plazo - 1; t >= 0; t--) {
+        long best = LONG_MAX;
+        int bestj = -1;
         tie_arr[t] = FALSE;
         tie_list[t][0] = '\0';
 
-        for (int j = t + 1; j <= N; j++)
-        {
-            long sum_maint_gain = 0;
-            for (int k = t; k <= j - 1; k++)
-            {
-                if (k >= N)
-                    break;
-                sum_maint_gain += (long)man[k] - (long)gan[k];
+        for (int j = t+1; j <= plazo && j-t <= vida; j++) {
+            int dur = j - t;
+            long c = 0;
+            for (int a = 0; a < dur; a++) {
+                c += (long)man[a] - (long)gan[a];
             }
+            // restamos la reventa
+            c += (long)C - (long)rev[dur-1];
 
-            long replac_cost = 0;
-            if (j < N)
-            {
-                replac_cost = (long)C - (long)rev[j - 1];
-            }
-            else
-            {
-                replac_cost = 0;
-            }
+            long total = c + (long)G_arr[j];
 
-            long total = sum_maint_gain + replac_cost + (long)G_arr[j];
-            if (total < min_cost)
-            {
-                min_cost = (int)total;
-                best_j = j;
-                tie_arr[t] = FALSE;
+            if (total < best) {
+                best = total;
+                bestj = j;
+                // guardamos la mejor opcion
                 tie_list[t][0] = '\0';
-            }
-            else if (total == min_cost)
-            {
-                // empate: anotar alternativa
+                snprintf(tie_list[t], sizeof(tie_list[t]), "%d", bestj);
+                tie_arr[t] = FALSE;
+            } else if (total == best) {
+                // añade los empates si existen
                 tie_arr[t] = TRUE;
-                if (tie_list[t][0] == '\0')
-                    snprintf(tie_list[t], sizeof(tie_list[t]), "%d", best_j); // guardar original mejor
-                // agregar j
+                if (tie_list[t][0] == '\0') {
+                    snprintf(tie_list[t], sizeof(tie_list[t]), "%d", bestj);
+                }
                 char addbuf[32];
                 snprintf(addbuf, sizeof(addbuf), ",%d", j);
                 strncat(tie_list[t], addbuf, sizeof(tie_list[t]) - strlen(tie_list[t]) - 1);
             }
         }
 
-        G_arr[t] = min_cost;
-        R_arr[t] = best_j;
+        if (best == LONG_MAX) {
+            G_arr[t] = INT_MAX / 4;
+            R_arr[t] = -1;
+        } else {
+            G_arr[t] = (int)best;
+            R_arr[t] = bestj;
+        }
+    }
+}
+
+// obtiene todos los planes optimos posibles con backtracking
+void get_posible_plans(int t, int plazo, const char *path, FILE *f) {
+    if (t == plazo) {
+        fprintf(f, "  \\item %s\n", path);
+        return;
+    }
+
+    if (tie_list[t][0] == '\0') {
+        if (R_arr[t] <= 0) return;
+        char newpath[512];
+        snprintf(newpath, sizeof(newpath), "%s -> %d", path, R_arr[t]);
+        get_posible_plans(R_arr[t], plazo, newpath, f);
+        return;
+    }
+
+    // Hacemos una copia de tie_list[t] y la recorremos con un puntero
+    char buf[256];
+    strncpy(buf, tie_list[t], sizeof(buf)-1);
+    buf[sizeof(buf)-1] = '\0';
+
+    char *p = buf;
+    while (*p) {
+        // buscar siguiente coma
+        char *comma = strchr(p, ',');
+        if (comma) *comma = '\0';
+        int next = atoi(p);
+        char newpath[512];
+        snprintf(newpath, sizeof(newpath), "%s - %d", path, next);
+        get_posible_plans(next, plazo, newpath, f);
+        if (!comma) break;
+        p = comma + 1;
     }
 }
 
 /* ---------- Generar LaTeX y compilar ---------- */
-void write_tex_equipos(const char *fname, int N, int C, int rev[], int man[], int gan[])
+void write_tex_equipos(const char *fname, int plazo, int vida, int C, int rev[], int man[], int gan[])
 {
     FILE *f = fopen(fname, "w");
     if (!f)
@@ -529,13 +563,82 @@ void write_tex_equipos(const char *fname, int N, int C, int rev[], int man[], in
 
     // --- Datos del problema ---
     fprintf(f, "\\section*{Problema}\n");
+    fprintf(f, "\\begin{itemize}\n");
+    fprintf(f, "\\item \\textbf{Costo inicial del equipo:} %d\n", C);
+    fprintf(f, "\\item \\textbf{Plazo del proyecto:} %d períodos\n", plazo);
+    fprintf(f, "\\item \\textbf{Vida útil del equipo:} %d períodos\n", vida);
+    fprintf(f, "\\end{itemize}\n\n");
 
-    // --- Tabla de trabajo ---
+    fprintf(f, "\\textbf{Datos iniciales de Reventa, Mantenimiento y ganancia:} \n");
+    fprintf(f, "\\begin{table}[h!]\n");
+    fprintf(f, "\\centering\n");
+    fprintf(f, "\\begin{tabular}{|c|c|c|c|}\n");
+    fprintf(f, "\\hline\n");
+    fprintf(f, "\\textbf{Año de vida} & \\textbf{Reventa} & \\textbf{Mantenimiento} & \\textbf{Ganancia} \\\\\n");
+    fprintf(f, "\\hline\n");
+    
+    for (int i = 0; i < vida; i++) {
+        fprintf(f, "%d & %d & %d & %d \\\\\n", i+1, rev[i], man[i], gan[i]);
+        fprintf(f, "\\hline\n");
+    }
+    
+    fprintf(f, "\\end{tabular}\n");
+    fprintf(f, "\\end{table}\n\n");
+
+    fprintf(f, "\\subsection*{Costos de cada periodo $C_{t,x}$}\n");
+    fprintf(f, "\\begin{longtable}{|c|" );
+    for (int j = 1; j <= plazo; j++) fprintf(f, "c|");
+    fprintf(f, "}\n\\hline\n");
+
+    fprintf(f, "$t \\to x$ ");
+    for (int j = 1; j <= plazo; j++) fprintf(f, " & %d", j);
+    fprintf(f, " \\\\\\hline\\hline\n");
+
+    for (int t = 0; t < plazo; t++) {
+        fprintf(f, "%d", t);
+        for (int j = 1; j <= plazo; j++) {
+            if (j <= t || j - t > vida) {
+                fprintf(f, " & -");
+            } else {
+                int dur = j - t;
+                int c = segment_cost(dur, C, rev, man, gan);
+                fprintf(f, " & %d", c);
+            }
+        }
+        fprintf(f, " \\\\\\hline\n");
+    }
+    fprintf(f, "\\end{longtable}\n");
+
+
+     // --- Tabla de trabajo ---
     fprintf(f, "\\section*{Tabla de trabajo}\n");
+    fprintf(f, "\\begin{tabular}{ccc}\\toprule\n");
+    fprintf(f, "t & G(t) & Próximo \\\\\\midrule\n");
+    for (int t = 0; t <= plazo; t++) {
+        const char *nextstr;
+        static char tmpbuf[64];
+        if (tie_list[t][0] != '\0') {
+            nextstr = tie_list[t];
+        } else if (R_arr[t] != -1) {
+            snprintf(tmpbuf, sizeof(tmpbuf), "%d", R_arr[t]);
+            nextstr = tmpbuf;
+        } else {
+            nextstr = "-";
+        }
+        fprintf(f, "%d & %d & %s \\\\\n", t, G_arr[t], nextstr);
+    }
+    fprintf(f, "\\bottomrule\\end{tabular}\n");
 
     // --- Soluciones óptimas ---
-    fprintf(f, "\\section*{Soluciones óptimas}\n");
+    fprintf(f, "\\section*{Solución óptima}\n");
+    fprintf(f, "Costo mínimo total: \\textbf{%d} \\\\\n", G_arr[0]);
 
+    fprintf(f, "\\subsection*{Planes óptimos}\n");
+    fprintf(f, "\\begin{itemize}\n");
+    char start[32];
+    snprintf(start, sizeof(start), "0");
+    get_posible_plans(0, plazo, start, f);
+    fprintf(f, "\\end{itemize}\n");
     // --- Referencias ---
     fprintf(f, "\\section*{Referencias}\n");
     fprintf(f, "\\begin{thebibliography}{9}\n");
@@ -553,7 +656,6 @@ void on_run_button_clicked(GtkWidget *widget, gpointer data)
 
     // obtener datos actuales
     current_costo = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(spin_costo_global));
-    // current_plazo y current_vida deben estar ya fijados al construir la tabla
     int N = current_vida;
     if (N <= 0 || N > MAXT)
         return;
@@ -570,13 +672,13 @@ void on_run_button_clicked(GtkWidget *widget, gpointer data)
     }
 
     // calcular Bellman
-    compute_bellman(N, current_costo, rev, man, gan);
+    compute_bellman(current_plazo, current_vida, current_costo, rev, man, gan);
 
     // Generar LaTeX
     const char *texname = "equipos_output.tex";
-    write_tex_equipos(texname, N, current_costo, rev, man, gan);
+    write_tex_equipos(texname, current_plazo, current_vida, current_costo, rev, man, gan);
 
-    // Compilar con pdflatex (2 pasadas)
+    // Compilar con pdflatex
     char cmd[512];
     snprintf(cmd, sizeof(cmd), "pdflatex -interaction=nonstopmode %s > /dev/null 2>&1", texname);
     system(cmd);
@@ -592,7 +694,7 @@ int main(int argc, char *argv[])
 {
     gtk_init(&argc, &argv);
 
-    // CSS para headers (igual que floyd)
+    // CSS para headers
     const char *css_data =
         ".header-entry {"
         " background: #b9f6ca;"
@@ -607,7 +709,7 @@ int main(int argc, char *argv[])
         GTK_STYLE_PROVIDER_PRIORITY_USER);
     g_object_unref(provider);
 
-    // Cargar Glade (antes del dialog como en floyd)
+    // Cargar Glade
     builder = gtk_builder_new_from_file("Equipos/equipos.glade");
     GtkWidget *window = GTK_WIDGET(gtk_builder_get_object(builder, "window_equipo"));
     grid_table = GTK_WIDGET(gtk_builder_get_object(builder, "grid_table"));
