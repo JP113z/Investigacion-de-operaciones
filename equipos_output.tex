@@ -7,12 +7,13 @@
 \usepackage{longtable}
 \usepackage{geometry}
 \usepackage{pdflscape}
+\usepackage{tikz}
 \geometry{margin=0.8in}
 \begin{document}
 \begin{center}
 {\large Instituto Tecnológico de Costa Rica\\[1cm]
 \includegraphics[width=0.4\textwidth]{TEC.png}\\[2cm]
-{\LARGE \textbf{Proyecto 2: Problema de la Mochila}}\\[2cm]
+{\LARGE \textbf{Proyecto 3: Reemplazo de equipos}}\\[2cm]
 {\large Investigación de Operaciones\\[2cm]
 {\large Profesor: }\\[1cm]
 {\large Francisco Jose Torres Roja}\\[2cm]
@@ -22,12 +23,139 @@
 {\large Segundo semestre 2025\\[1cm]
 \end{center}
 \newpage
-\section*{Algoritmo de la Mochila}
+\section*{Problema de Reemplazo de Equipos}
+El \textbf{problema de reemplazo de equipos} es un problema clásico de toma de decisiones en investigación de operaciones. Consiste en determinar, a lo largo de un horizonte temporal, en qué momento resulta óptimo reemplazar un equipo (por ejemplo, una máquina, vehículo o computadora) considerando que, con el tiempo, su rendimiento disminuye y los costos de mantenimiento aumentan, mientras que su valor de reventa disminuye.
+
+El objetivo es minimizar el costo total esperado. 
+
+\textbf{Variantes del problema:}
+\begin{itemize}
+  \item \textit{Horizonte finito vs. infinito:} El análisis puede hacerse en un período limitado de tiempo o indefinido.
+  \item \textit{Determinístico vs. estocástico:} En la versión determinística se conocen los costos y valores de reventa; en la estocástica, se modelan como variables aleatorias.
+  \item \textit{Reemplazo individual vs. múltiple:} Puede plantearse para un único equipo o para varios equipos en paralelo.
+\end{itemize}
+
+\bigskip
 \section*{Algoritmo utilizado}
+El problema de reemplazo de equipos se resolvió utilizando la \textbf{ecuación recursiva de Bellman}, la cual permite determinar la decisión óptima en cada instante de tiempo aplicando el principio de optimalidad. 
+
+La formulación es:
+
+$$
+G(t) = \min \{ C_{t,x} + G(x) \}
+$$
+
+donde:
+\begin{itemize}
+  \item $G(t)$ representa el costo mínimo óptimo a partir del instante $t$.
+  \item $C_{t,x}$ es el costo de comprar el equipo en el instante $t$ y venderlo en el instante $x$.
+  \item $G(x)$ corresponde a la decisión más óptima a partir del instante $x$.
+\end{itemize}
+
+De esta forma, en cada período se comparan las posibles decisiones (mantener el equipo o reemplazarlo) y se elige aquella que minimiza el costo total acumulado.
+
+\bigskip
 \section*{Problema}
+\begin{itemize}
+\item \textbf{Costo inicial del equipo:} 500
+\item \textbf{Plazo del proyecto:} 5 períodos
+\item \textbf{Vida útil del equipo:} 3 períodos
+\end{itemize}
+
+\textbf{Datos iniciales de Reventa, Mantenimiento y ganancia:} 
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Año de vida} & \textbf{Reventa} & \textbf{Mantenimiento} & \textbf{Ganancia} \\
+\hline
+1 & 400 & 30 & 0 \\
+\hline
+2 & 300 & 40 & 0 \\
+\hline
+3 & 250 & 60 & 0 \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+\begin{landscape}
+\subsection*{Costos de cada periodo $C_{t,x}$}
+\begin{longtable}{|c|c|c|c|c|c|}
+\hline
+$t \to x$  & 1 & 2 & 3 & 4 & 5 \\\hline\hline
+0 & 130 & 270 & 380 & - & - \\\hline
+1 & - & 130 & 270 & 380 & - \\\hline
+2 & - & - & 130 & 270 & 380 \\\hline
+3 & - & - & - & 130 & 270 \\\hline
+4 & - & - & - & - & 130 \\\hline
+\end{longtable}
+\end{landscape}
 \section*{Tabla de trabajo}
-\section*{Soluciones óptimas}
-\section*{Referencias}
+\begin{tabular}{ccc}\toprule
+t & G(t) & Próximo \\\midrule
+0 & 640 & 1,3 \\
+1 & 510 & 2,4 \\
+2 & 380 & 5 \\
+3 & 260 & 4 \\
+4 & 130 & 5 \\
+5 & 0 & - \\
+\bottomrule\end{tabular}
+\section*{Solución óptima}
+Costo mínimo total: \textbf{640} \\
+\newpage
+\begin{landscape}
+\subsection*{Planes óptimos}
+\begin{itemize}
+  \item 0 - 1 - 2 - 5
+\begin{center}
+\begin{tikzpicture}[>=stealth,thick,scale=1.0]
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n0) at (0.0,0) {0};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n1) at (1.1,0) {1};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n2) at (2.2,0) {2};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n3) at (3.3,0) {3};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n4) at (4.4,0) {4};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n5) at (5.5,0) {5};
+\draw[->,thick,red,bend left=40] (n0) to (n1);
+\draw[->,thick,red,bend left=40] (n1) to (n2);
+\draw[->,thick,red,bend left=40] (n2) to (n5);
+\end{tikzpicture}
+\end{center}
+  \item 0 - 1 - 4 - 5
+\begin{center}
+\begin{tikzpicture}[>=stealth,thick,scale=1.0]
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n0) at (0.0,0) {0};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n1) at (1.1,0) {1};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n2) at (2.2,0) {2};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n3) at (3.3,0) {3};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n4) at (4.4,0) {4};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n5) at (5.5,0) {5};
+\draw[->,thick,red,bend left=40] (n0) to (n1);
+\draw[->,thick,red,bend left=40] (n1) to (n4);
+\draw[->,thick,red,bend left=40] (n4) to (n5);
+\end{tikzpicture}
+\end{center}
+  \item 0 - 3 - 4 - 5
+\begin{center}
+\begin{tikzpicture}[>=stealth,thick,scale=1.0]
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n0) at (0.0,0) {0};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n1) at (1.1,0) {1};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n2) at (2.2,0) {2};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n3) at (3.3,0) {3};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n4) at (4.4,0) {4};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n5) at (5.5,0) {5};
+\draw[->,thick,red,bend left=40] (n0) to (n3);
+\draw[->,thick,red,bend left=40] (n3) to (n4);
+\draw[->,thick,red,bend left=40] (n4) to (n5);
+\end{tikzpicture}
+\end{center}
+\end{itemize}
+\end{landscape}
+\newpage
 \begin{thebibliography}{9}
+\bibitem{meyer1971} Meyer, R. A. (1971). Equipment replacement under uncertainty. \textit{Management Science, 17}(11), 750--758. https://doi.org/10.1287/mnsc.17.11.750
+
+\bibitem{tan2010} Tan, C., \\& Hartman, J. (2010). Equipment replacement analysis with an uncertain finite horizon. Disponible en: https://econpapers.repec.org/article/tafuiiexx/v\_3a42\_3ay\_3a2010\_3ai\_3a5\_3ap\_3a342-353.htm
+
 \end{thebibliography}
 \end{document}

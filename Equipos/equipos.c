@@ -420,18 +420,22 @@ void on_save_button_clicked_equipos(GtkWidget *widget, gpointer data)
 
 /* ---------- Algoritmo Bellman recursivo ---------- */
 // calcula el costo de cada segmento de t a x
-int segment_cost(int dur, int C, int rev[], int man[], int gan[]) {
+int segment_cost(int dur, int C, int rev[], int man[], int gan[])
+{
     long suma = 0;
-    for (int a = 0; a < dur; a++) {
+    for (int a = 0; a < dur; a++)
+    {
         suma += (long)man[a] - (long)gan[a];
     }
     // al final del tramo, vendo
-    suma += C - rev[dur-1];
+    suma += C - rev[dur - 1];
     return (int)suma;
 }
 // calcula el reemplazo óptimo y obtiene los G(t)
-void compute_bellman(int plazo, int vida, int C, int rev[], int man[], int gan[]) {
-    for (int i = 0; i <= plazo; i++) {
+void compute_bellman(int plazo, int vida, int C, int rev[], int man[], int gan[])
+{
+    for (int i = 0; i <= plazo; i++)
+    {
         G_arr[i] = INT_MAX / 4;
         R_arr[i] = -1;
         tie_arr[i] = FALSE;
@@ -439,34 +443,41 @@ void compute_bellman(int plazo, int vida, int C, int rev[], int man[], int gan[]
     }
     G_arr[plazo] = 0;
 
-    for (int t = plazo - 1; t >= 0; t--) {
+    for (int t = plazo - 1; t >= 0; t--)
+    {
         long best = LONG_MAX;
         int bestj = -1;
         tie_arr[t] = FALSE;
         tie_list[t][0] = '\0';
 
-        for (int j = t+1; j <= plazo && j-t <= vida; j++) {
+        for (int j = t + 1; j <= plazo && j - t <= vida; j++)
+        {
             int dur = j - t;
             long c = 0;
-            for (int a = 0; a < dur; a++) {
+            for (int a = 0; a < dur; a++)
+            {
                 c += (long)man[a] - (long)gan[a];
             }
             // restamos la reventa
-            c += (long)C - (long)rev[dur-1];
+            c += (long)C - (long)rev[dur - 1];
 
             long total = c + (long)G_arr[j];
 
-            if (total < best) {
+            if (total < best)
+            {
                 best = total;
                 bestj = j;
                 // guardamos la mejor opcion
                 tie_list[t][0] = '\0';
                 snprintf(tie_list[t], sizeof(tie_list[t]), "%d", bestj);
                 tie_arr[t] = FALSE;
-            } else if (total == best) {
+            }
+            else if (total == best)
+            {
                 // añade los empates si existen
                 tie_arr[t] = TRUE;
-                if (tie_list[t][0] == '\0') {
+                if (tie_list[t][0] == '\0')
+                {
                     snprintf(tie_list[t], sizeof(tie_list[t]), "%d", bestj);
                 }
                 char addbuf[32];
@@ -475,45 +486,56 @@ void compute_bellman(int plazo, int vida, int C, int rev[], int man[], int gan[]
             }
         }
 
-        if (best == LONG_MAX) {
+        if (best == LONG_MAX)
+        {
             G_arr[t] = INT_MAX / 4;
             R_arr[t] = -1;
-        } else {
+        }
+        else
+        {
             G_arr[t] = (int)best;
             R_arr[t] = bestj;
         }
     }
 }
 
-// Genera los grafos para cada plan óptimo usando TikZ 
-void write_tikz_plan(FILE *f, const char *plan) {
+// Genera los grafos para cada plan óptimo usando TikZ
+void write_tikz_plan(FILE *f, const char *plan)
+{
     // Extrae los años de salto
-    int years[MAXT+2], n = 0;
+    int years[MAXT + 2], n = 0;
     char buf[256];
-    strncpy(buf, plan, sizeof(buf)-1);
-    buf[sizeof(buf)-1] = '\0';
+    strncpy(buf, plan, sizeof(buf) - 1);
+    buf[sizeof(buf) - 1] = '\0';
 
     char *p = buf;
-    while (*p) {
-        while (*p && !isdigit(*p)) p++;
-        if (!*p) break;
+    while (*p)
+    {
+        while (*p && !isdigit(*p))
+            p++;
+        if (!*p)
+            break;
         years[n++] = atoi(p);
-        while (*p && (isdigit(*p))) p++;
+        while (*p && (isdigit(*p)))
+            p++;
     }
-    if (n < 2) return;
+    if (n < 2)
+        return;
 
-    int max_year = years[n-1];
+    int max_year = years[n - 1];
 
     fprintf(f, "\\begin{center}\n");
     fprintf(f, "\\begin{tikzpicture}[>=stealth,thick,scale=1.0]\n");
     // Nodos
-    for (int i = 0; i <= max_year; i++) {
-        fprintf(f, "\\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n%d) at (%.1f,0) {%d};\n", i, i*1.1, i);
+    for (int i = 0; i <= max_year; i++)
+    {
+        fprintf(f, "\\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n%d) at (%.1f,0) {%d};\n", i, i * 1.1, i);
     }
     // Flechas curvas entre los años del plan
-    for (int i = 0; i < n-1; i++) {
+    for (int i = 0; i < n - 1; i++)
+    {
         int from = years[i];
-        int to = years[i+1];
+        int to = years[i + 1];
         fprintf(f, "\\draw[->,thick,red,bend left=40] (n%d) to (n%d);\n", from, to);
     }
     fprintf(f, "\\end{tikzpicture}\n");
@@ -521,15 +543,19 @@ void write_tikz_plan(FILE *f, const char *plan) {
 }
 
 // obtiene todos los planes optimos posibles con backtracking
-void get_posible_plans(int t, int plazo, const char *path, FILE *f) {
-    if (t == plazo) {
+void get_posible_plans(int t, int plazo, const char *path, FILE *f)
+{
+    if (t == plazo)
+    {
         fprintf(f, "  \\item %s\n", path);
         write_tikz_plan(f, path); // añade el grafo debajo del plan
         return;
     }
 
-    if (tie_list[t][0] == '\0') {
-        if (R_arr[t] <= 0) return;
+    if (tie_list[t][0] == '\0')
+    {
+        if (R_arr[t] <= 0)
+            return;
         char newpath[512];
         snprintf(newpath, sizeof(newpath), "%s -> %d", path, R_arr[t]);
         get_posible_plans(R_arr[t], plazo, newpath, f);
@@ -538,19 +564,22 @@ void get_posible_plans(int t, int plazo, const char *path, FILE *f) {
 
     // Hacemos una copia de tie_list[t] y la recorremos con un puntero
     char buf[256];
-    strncpy(buf, tie_list[t], sizeof(buf)-1);
-    buf[sizeof(buf)-1] = '\0';
+    strncpy(buf, tie_list[t], sizeof(buf) - 1);
+    buf[sizeof(buf) - 1] = '\0';
 
     char *p = buf;
-    while (*p) {
+    while (*p)
+    {
         // buscar siguiente coma
         char *comma = strchr(p, ',');
-        if (comma) *comma = '\0';
+        if (comma)
+            *comma = '\0';
         int next = atoi(p);
         char newpath[512];
         snprintf(newpath, sizeof(newpath), "%s - %d", path, next);
         get_posible_plans(next, plazo, newpath, f);
-        if (!comma) break;
+        if (!comma)
+            break;
         p = comma + 1;
     }
 }
@@ -593,10 +622,45 @@ void write_tex_equipos(const char *fname, int plazo, int vida, int C, int rev[],
     fprintf(f, "\\end{center}\n\\newpage\n");
 
     // --- Descripción del algoritmo ---
-    fprintf(f, "\\section*{Algoritmo de la Mochila}\n");
+    fprintf(f, "\\section*{Problema de Reemplazo de Equipos}\n");
+    fprintf(f,
+            "El \\textbf{problema de reemplazo de equipos} es un problema clásico de toma de decisiones en investigación de operaciones. "
+            "Consiste en determinar, a lo largo de un horizonte temporal, en qué momento resulta óptimo reemplazar un equipo "
+            "(por ejemplo, una máquina, vehículo o computadora) considerando que, con el tiempo, su rendimiento disminuye "
+            "y los costos de mantenimiento aumentan, mientras que su valor de reventa disminuye.\n\n"
 
+            "El objetivo es minimizar el costo total esperado. \n\n"
+
+            "\\textbf{Variantes del problema:}\n"
+            "\\begin{itemize}\n"
+            "  \\item \\textit{Horizonte finito vs. infinito:} El análisis puede hacerse en un período limitado de tiempo o indefinido.\n"
+            "  \\item \\textit{Determinístico vs. estocástico:} En la versión determinística se conocen los costos y valores de reventa; en la estocástica, se modelan como variables aleatorias.\n"
+            "  \\item \\textit{Reemplazo individual vs. múltiple:} Puede plantearse para un único equipo o para varios equipos en paralelo.\n"
+            "\\end{itemize}\n\n"
+
+            "\\bigskip\n");
     // --- Algoritmo usado ---
     fprintf(f, "\\section*{Algoritmo utilizado}\n");
+    fprintf(f,
+            "El problema de reemplazo de equipos se resolvió utilizando la \\textbf{ecuación recursiva de Bellman}, "
+            "la cual permite determinar la decisión óptima en cada instante de tiempo aplicando el principio de optimalidad. \n\n"
+
+            "La formulación es:\n\n"
+
+            "$$\n"
+            "G(t) = \\min \\{ C_{t,x} + G(x) \\}\n"
+            "$$\n\n"
+
+            "donde:\n"
+            "\\begin{itemize}\n"
+            "  \\item $G(t)$ representa el costo mínimo óptimo a partir del instante $t$.\n"
+            "  \\item $C_{t,x}$ es el costo de comprar el equipo en el instante $t$ y venderlo en el instante $x$.\n"
+            "  \\item $G(x)$ corresponde a la decisión más óptima a partir del instante $x$.\n"
+            "\\end{itemize}\n\n"
+
+            "De esta forma, en cada período se comparan las posibles decisiones (mantener el equipo o reemplazarlo) "
+            "y se elige aquella que minimiza el costo total acumulado.\n\n"
+            "\\bigskip\n");
 
     // --- Datos del problema ---
     fprintf(f, "\\section*{Problema}\n");
@@ -613,30 +677,41 @@ void write_tex_equipos(const char *fname, int plazo, int vida, int C, int rev[],
     fprintf(f, "\\hline\n");
     fprintf(f, "\\textbf{Año de vida} & \\textbf{Reventa} & \\textbf{Mantenimiento} & \\textbf{Ganancia} \\\\\n");
     fprintf(f, "\\hline\n");
-    
-    for (int i = 0; i < vida; i++) {
-        fprintf(f, "%d & %d & %d & %d \\\\\n", i+1, rev[i], man[i], gan[i]);
+
+    for (int i = 0; i < vida; i++)
+    {
+        fprintf(f, "%d & %d & %d & %d \\\\\n", i + 1, rev[i], man[i], gan[i]);
         fprintf(f, "\\hline\n");
     }
-    
+
     fprintf(f, "\\end{tabular}\n");
     fprintf(f, "\\end{table}\n\n");
 
+    fprintf(f, "\\newpage\n");
+    fprintf(f, "\\begin{landscape}\n");
+
     fprintf(f, "\\subsection*{Costos de cada periodo $C_{t,x}$}\n");
-    fprintf(f, "\\begin{longtable}{|c|" );
-    for (int j = 1; j <= plazo; j++) fprintf(f, "c|");
+    fprintf(f, "\\begin{longtable}{|c|");
+    for (int j = 1; j <= plazo; j++)
+        fprintf(f, "c|");
     fprintf(f, "}\n\\hline\n");
 
     fprintf(f, "$t \\to x$ ");
-    for (int j = 1; j <= plazo; j++) fprintf(f, " & %d", j);
+    for (int j = 1; j <= plazo; j++)
+        fprintf(f, " & %d", j);
     fprintf(f, " \\\\\\hline\\hline\n");
 
-    for (int t = 0; t < plazo; t++) {
+    for (int t = 0; t < plazo; t++)
+    {
         fprintf(f, "%d", t);
-        for (int j = 1; j <= plazo; j++) {
-            if (j <= t || j - t > vida) {
+        for (int j = 1; j <= plazo; j++)
+        {
+            if (j <= t || j - t > vida)
+            {
                 fprintf(f, " & -");
-            } else {
+            }
+            else
+            {
                 int dur = j - t;
                 int c = segment_cost(dur, C, rev, man, gan);
                 fprintf(f, " & %d", c);
@@ -646,20 +721,27 @@ void write_tex_equipos(const char *fname, int plazo, int vida, int C, int rev[],
     }
     fprintf(f, "\\end{longtable}\n");
 
+    fprintf(f, "\\end{landscape}\n");
 
-     // --- Tabla de trabajo ---
+    // --- Tabla de trabajo ---
     fprintf(f, "\\section*{Tabla de trabajo}\n");
     fprintf(f, "\\begin{tabular}{ccc}\\toprule\n");
     fprintf(f, "t & G(t) & Próximo \\\\\\midrule\n");
-    for (int t = 0; t <= plazo; t++) {
+    for (int t = 0; t <= plazo; t++)
+    {
         const char *nextstr;
         static char tmpbuf[64];
-        if (tie_list[t][0] != '\0') {
+        if (tie_list[t][0] != '\0')
+        {
             nextstr = tie_list[t];
-        } else if (R_arr[t] != -1) {
+        }
+        else if (R_arr[t] != -1)
+        {
             snprintf(tmpbuf, sizeof(tmpbuf), "%d", R_arr[t]);
             nextstr = tmpbuf;
-        } else {
+        }
+        else
+        {
             nextstr = "-";
         }
         fprintf(f, "%d & %d & %s \\\\\n", t, G_arr[t], nextstr);
@@ -670,15 +752,31 @@ void write_tex_equipos(const char *fname, int plazo, int vida, int C, int rev[],
     fprintf(f, "\\section*{Solución óptima}\n");
     fprintf(f, "Costo mínimo total: \\textbf{%d} \\\\\n", G_arr[0]);
 
+    fprintf(f, "\\newpage\n");
+    fprintf(f, "\\begin{landscape}\n");
+
     fprintf(f, "\\subsection*{Planes óptimos}\n");
     fprintf(f, "\\begin{itemize}\n");
     char start[32];
     snprintf(start, sizeof(start), "0");
     get_posible_plans(0, plazo, start, f);
     fprintf(f, "\\end{itemize}\n");
+
+    fprintf(f, "\\end{landscape}\n");
+    fprintf(f, "\\newpage\n");
+
     // --- Referencias ---
-    fprintf(f, "\\section*{Referencias}\n");
     fprintf(f, "\\begin{thebibliography}{9}\n");
+
+    fprintf(f,
+            "\\bibitem{meyer1971} Meyer, R. A. (1971). Equipment replacement under uncertainty. "
+            "\\textit{Management Science, 17}(11), 750--758. "
+            "https://doi.org/10.1287/mnsc.17.11.750\n\n");
+
+    fprintf(f,
+            "\\bibitem{tan2010} Tan, C., \\\\& Hartman, J. (2010). Equipment replacement analysis with an uncertain finite horizon. "
+            "Disponible en: https://econpapers.repec.org/article/tafuiiexx/v\\_3a42\\_3ay\\_3a2010\\_3ai\\_3a5\\_3ap\\_3a342-353.htm\n\n");
+
     fprintf(f, "\\end{thebibliography}\n");
 
     fprintf(f, "\\end{document}\n");
