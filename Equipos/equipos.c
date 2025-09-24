@@ -485,10 +485,46 @@ void compute_bellman(int plazo, int vida, int C, int rev[], int man[], int gan[]
     }
 }
 
+// Genera los grafos para cada plan óptimo usando TikZ 
+void write_tikz_plan(FILE *f, const char *plan) {
+    // Extrae los años de salto
+    int years[MAXT+2], n = 0;
+    char buf[256];
+    strncpy(buf, plan, sizeof(buf)-1);
+    buf[sizeof(buf)-1] = '\0';
+
+    char *p = buf;
+    while (*p) {
+        while (*p && !isdigit(*p)) p++;
+        if (!*p) break;
+        years[n++] = atoi(p);
+        while (*p && (isdigit(*p))) p++;
+    }
+    if (n < 2) return;
+
+    int max_year = years[n-1];
+
+    fprintf(f, "\\begin{center}\n");
+    fprintf(f, "\\begin{tikzpicture}[>=stealth,thick,scale=1.0]\n");
+    // Nodos
+    for (int i = 0; i <= max_year; i++) {
+        fprintf(f, "\\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n%d) at (%.1f,0) {%d};\n", i, i*1.1, i);
+    }
+    // Flechas curvas entre los años del plan
+    for (int i = 0; i < n-1; i++) {
+        int from = years[i];
+        int to = years[i+1];
+        fprintf(f, "\\draw[->,thick,red,bend left=40] (n%d) to (n%d);\n", from, to);
+    }
+    fprintf(f, "\\end{tikzpicture}\n");
+    fprintf(f, "\\end{center}\n");
+}
+
 // obtiene todos los planes optimos posibles con backtracking
 void get_posible_plans(int t, int plazo, const char *path, FILE *f) {
     if (t == plazo) {
         fprintf(f, "  \\item %s\n", path);
+        write_tikz_plan(f, path); // añade el grafo debajo del plan
         return;
     }
 
@@ -538,6 +574,7 @@ void write_tex_equipos(const char *fname, int plazo, int vida, int C, int rev[],
     fprintf(f, "\\usepackage{longtable}\n");
     fprintf(f, "\\usepackage{geometry}\n");
     fprintf(f, "\\usepackage{pdflscape}\n");
+    fprintf(f, "\\usepackage{tikz}\n");
     fprintf(f, "\\geometry{margin=0.8in}\n");
     fprintf(f, "\\begin{document}\n");
 
