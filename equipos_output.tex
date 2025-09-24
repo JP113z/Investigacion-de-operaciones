@@ -57,9 +57,9 @@ De esta forma, en cada período se comparan las posibles decisiones (mantener el
 \bigskip
 \section*{Problema}
 \begin{itemize}
-\item \textbf{Costo inicial del equipo:} 500
-\item \textbf{Plazo del proyecto:} 5 períodos
-\item \textbf{Vida útil del equipo:} 3 períodos
+\item \textbf{Costo inicial del equipo:} 14000
+\item \textbf{Plazo del proyecto:} 13 períodos
+\item \textbf{Vida útil del equipo:} 5 períodos
 \end{itemize}
 
 \textbf{Datos iniciales de Reventa, Mantenimiento y ganancia:} 
@@ -69,11 +69,15 @@ De esta forma, en cada período se comparan las posibles decisiones (mantener el
 \hline
 \textbf{Año de vida} & \textbf{Reventa} & \textbf{Mantenimiento} & \textbf{Ganancia} \\
 \hline
-1 & 400 & 30 & 0 \\
+1 & 6000 & 1500 & 0 \\
 \hline
-2 & 300 & 40 & 0 \\
+2 & 5500 & 1450 & 0 \\
 \hline
-3 & 250 & 60 & 0 \\
+3 & 5000 & 1000 & 0 \\
+\hline
+4 & 4700 & 1700 & 0 \\
+\hline
+5 & 4000 & 1500 & 0 \\
 \hline
 \end{tabular}
 \end{table}
@@ -81,33 +85,49 @@ De esta forma, en cada período se comparan las posibles decisiones (mantener el
 \newpage
 \begin{landscape}
 \subsection*{Costos de cada periodo $C_{t,x}$}
-\begin{longtable}{|c|c|c|c|c|c|}
+\begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-$t \to x$  & 1 & 2 & 3 & 4 & 5 \\\hline\hline
-0 & 130 & 270 & 380 & - & - \\\hline
-1 & - & 130 & 270 & 380 & - \\\hline
-2 & - & - & 130 & 270 & 380 \\\hline
-3 & - & - & - & 130 & 270 \\\hline
-4 & - & - & - & - & 130 \\\hline
+$t \to x$  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 \\\hline\hline
+0 & 9500 & 11450 & 12950 & 14950 & 17150 & - & - & - & - & - & - & - & - \\\hline
+1 & - & 9500 & 11450 & 12950 & 14950 & 17150 & - & - & - & - & - & - & - \\\hline
+2 & - & - & 9500 & 11450 & 12950 & 14950 & 17150 & - & - & - & - & - & - \\\hline
+3 & - & - & - & 9500 & 11450 & 12950 & 14950 & 17150 & - & - & - & - & - \\\hline
+4 & - & - & - & - & 9500 & 11450 & 12950 & 14950 & 17150 & - & - & - & - \\\hline
+5 & - & - & - & - & - & 9500 & 11450 & 12950 & 14950 & 17150 & - & - & - \\\hline
+6 & - & - & - & - & - & - & 9500 & 11450 & 12950 & 14950 & 17150 & - & - \\\hline
+7 & - & - & - & - & - & - & - & 9500 & 11450 & 12950 & 14950 & 17150 & - \\\hline
+8 & - & - & - & - & - & - & - & - & 9500 & 11450 & 12950 & 14950 & 17150 \\\hline
+9 & - & - & - & - & - & - & - & - & - & 9500 & 11450 & 12950 & 14950 \\\hline
+10 & - & - & - & - & - & - & - & - & - & - & 9500 & 11450 & 12950 \\\hline
+11 & - & - & - & - & - & - & - & - & - & - & - & 9500 & 11450 \\\hline
+12 & - & - & - & - & - & - & - & - & - & - & - & - & 9500 \\\hline
 \end{longtable}
 \end{landscape}
 \section*{Tabla de trabajo}
 \begin{tabular}{ccc}\toprule
 t & G(t) & Próximo \\\midrule
-0 & 640 & 1,3 \\
-1 & 510 & 2,4 \\
-2 & 380 & 5 \\
-3 & 260 & 4 \\
-4 & 130 & 5 \\
-5 & 0 & - \\
+0 & 47050 & 4,5 \\
+1 & 44850 & 5 \\
+2 & 42850 & 5,6 \\
+3 & 34300 & 8 \\
+4 & 32100 & 8,9 \\
+5 & 29900 & 9 \\
+6 & 27900 & 9,10 \\
+7 & 25900 & 10 \\
+8 & 17150 & 13 \\
+9 & 14950 & 13 \\
+10 & 12950 & 13 \\
+11 & 11450 & 13 \\
+12 & 9500 & 13 \\
+13 & 0 & - \\
 \bottomrule\end{tabular}
 \section*{Solución óptima}
-Costo mínimo total: \textbf{640} \\
+Costo mínimo total: \textbf{47050} \\
 \newpage
 \begin{landscape}
 \subsection*{Planes óptimos}
 \begin{itemize}
-  \item 0 - 1 - 2 - 5
+  \item 0 - 4 - 8 - 13
 \begin{center}
 \begin{tikzpicture}[>=stealth,thick,scale=1.0]
 \node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n0) at (0.0,0) {0};
@@ -116,12 +136,20 @@ Costo mínimo total: \textbf{640} \\
 \node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n3) at (3.3,0) {3};
 \node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n4) at (4.4,0) {4};
 \node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n5) at (5.5,0) {5};
-\draw[->,thick,red,bend left=40] (n0) to (n1);
-\draw[->,thick,red,bend left=40] (n1) to (n2);
-\draw[->,thick,red,bend left=40] (n2) to (n5);
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n6) at (6.6,0) {6};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n7) at (7.7,0) {7};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n8) at (8.8,0) {8};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n9) at (9.9,0) {9};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n10) at (11.0,0) {10};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n11) at (12.1,0) {11};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n12) at (13.2,0) {12};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n13) at (14.3,0) {13};
+\draw[->,thick,red,bend left=40] (n0) to (n4);
+\draw[->,thick,red,bend left=40] (n4) to (n8);
+\draw[->,thick,red,bend left=40] (n8) to (n13);
 \end{tikzpicture}
 \end{center}
-  \item 0 - 1 - 4 - 5
+  \item 0 - 4 - 9 - 13
 \begin{center}
 \begin{tikzpicture}[>=stealth,thick,scale=1.0]
 \node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n0) at (0.0,0) {0};
@@ -130,12 +158,20 @@ Costo mínimo total: \textbf{640} \\
 \node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n3) at (3.3,0) {3};
 \node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n4) at (4.4,0) {4};
 \node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n5) at (5.5,0) {5};
-\draw[->,thick,red,bend left=40] (n0) to (n1);
-\draw[->,thick,red,bend left=40] (n1) to (n4);
-\draw[->,thick,red,bend left=40] (n4) to (n5);
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n6) at (6.6,0) {6};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n7) at (7.7,0) {7};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n8) at (8.8,0) {8};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n9) at (9.9,0) {9};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n10) at (11.0,0) {10};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n11) at (12.1,0) {11};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n12) at (13.2,0) {12};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n13) at (14.3,0) {13};
+\draw[->,thick,red,bend left=40] (n0) to (n4);
+\draw[->,thick,red,bend left=40] (n4) to (n9);
+\draw[->,thick,red,bend left=40] (n9) to (n13);
 \end{tikzpicture}
 \end{center}
-  \item 0 - 3 - 4 - 5
+  \item 0 - 5 - 9 - 13
 \begin{center}
 \begin{tikzpicture}[>=stealth,thick,scale=1.0]
 \node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n0) at (0.0,0) {0};
@@ -144,9 +180,17 @@ Costo mínimo total: \textbf{640} \\
 \node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n3) at (3.3,0) {3};
 \node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n4) at (4.4,0) {4};
 \node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n5) at (5.5,0) {5};
-\draw[->,thick,red,bend left=40] (n0) to (n3);
-\draw[->,thick,red,bend left=40] (n3) to (n4);
-\draw[->,thick,red,bend left=40] (n4) to (n5);
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n6) at (6.6,0) {6};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n7) at (7.7,0) {7};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n8) at (8.8,0) {8};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n9) at (9.9,0) {9};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n10) at (11.0,0) {10};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n11) at (12.1,0) {11};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n12) at (13.2,0) {12};
+\node[circle,draw,fill=cyan!10,minimum size=0.9cm] (n13) at (14.3,0) {13};
+\draw[->,thick,red,bend left=40] (n0) to (n5);
+\draw[->,thick,red,bend left=40] (n5) to (n9);
+\draw[->,thick,red,bend left=40] (n9) to (n13);
 \end{tikzpicture}
 \end{center}
 \end{itemize}
